@@ -205,8 +205,8 @@ $("spsdBtn").addEventListener("click",()=>window.open("https://www.spsd.sk.ca/",
 function runWelcomeSplash(){
   const splash = $("welcomeSplash");
   if(!splash) return;
-  window.setTimeout(()=>splash.classList.add("is-leaving"), 1550);
-  window.setTimeout(()=>splash.remove(), 2350);
+  window.setTimeout(()=>splash.classList.add("is-leaving"), 2250);
+  window.setTimeout(()=>splash.remove(), 3150);
 }
 
 runWelcomeSplash();renderRole();renderHome();renderCalendar();renderAbsences();

@@ -128,7 +128,7 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
   letter-spacing:-.04em;
   opacity:0;
   transform:translateY(14px);
-  animation:splashRise .6s .65s ease forwards;
+  animation:splashRise .72s .72s ease forwards;
 }
 .splash-line{
   width:0;

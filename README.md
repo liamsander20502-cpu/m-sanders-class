@@ -1,8 +1,7 @@
-# École River Heights Parent Hub
+# M. Sander's Class Parent Hub
 
-Update includes:
-- Official École River Heights school website link
-- Removed fake Library/Gym/School Photos demo events
-- Removed the AI Import page and controls
-- Added a polished animated welcome screen
-- Parent Hub and calendar remain intact
+Opening animation now shows only:
+M. SANDER'S CLASS
+Bienvenue!
+
+École River Heights is no longer named on the opening screen.
