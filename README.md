@@ -1,7 +1,12 @@
-# M. Sander Parent Hub — Calendar hover v2
+# M. Sander Parent Hub — Calendar countdown v3
 
-Fix:
-- Hovering a date now shows the countdown directly inside that calendar cell.
-- Labels include Today, Tomorrow, Yesterday, X days away, or X days ago.
-- The badge no longer depends on a separately positioned floating tooltip.
-- Touch devices show the same badge when a date is tapped.
+Fixes the grey-dot bug.
+
+Hovering over a day now shows a real text badge inside the calendar cell:
+- Today
+- Tomorrow
+- Yesterday
+- X days away
+- X days ago
+
+The countdown is rendered as an actual HTML element rather than CSS-generated content.

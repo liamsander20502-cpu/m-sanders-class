@@ -930,3 +930,66 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
     display: none !important;
   }
 }
+
+
+/* ======================================================
+   Calendar countdown v3
+   Real text element instead of CSS-generated attr().
+   ====================================================== */
+.day::before {
+  display: none !important;
+  content: none !important;
+}
+
+.day-countdown {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  z-index: 20;
+  transform: translate(-50%, 7px) scale(.96);
+  min-width: max-content;
+  max-width: calc(100% - 14px);
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(31,41,55,.94);
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(15,23,42,.16);
+  font-size: .64rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity .15s ease,
+    transform .15s ease,
+    visibility .15s ease;
+}
+
+.day:hover .day-countdown,
+.day.is-hovered .day-countdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* Make today's label feel slightly special. */
+.day .day-countdown {
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+@media (max-width:720px) {
+  .day-countdown {
+    bottom: 5px;
+    padding: 4px 6px;
+    font-size: .55rem;
+  }
+}
+
+@media print {
+  .day-countdown {
+    display: none !important;
+  }
+}
