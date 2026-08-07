@@ -227,6 +227,10 @@ function getDayDistanceLabel(iso){
 
 function wireCalendarHover(){
   document.querySelectorAll(".day").forEach(day=>{
+    const label = getDayDistanceLabel(day.dataset.date);
+    day.dataset.distance = label;
+    day.setAttribute("aria-label", `${day.dataset.date}: ${label}`);
+
     day.addEventListener("mouseenter",()=>day.classList.add("is-hovered"));
     day.addEventListener("mouseleave",()=>day.classList.remove("is-hovered"));
     day.addEventListener("focusin",()=>day.classList.add("is-hovered"));
@@ -235,7 +239,7 @@ function wireCalendarHover(){
     day.addEventListener("click",(e)=>{
       if(window.matchMedia("(hover: none)").matches){
         e.stopPropagation();
-        const open=day.classList.contains("is-hovered");
+        const open = day.classList.contains("is-hovered");
         document.querySelectorAll(".day.is-hovered").forEach(el=>el.classList.remove("is-hovered"));
         if(!open) day.classList.add("is-hovered");
       }
@@ -306,7 +310,7 @@ function renderCalendar(){
     cells.push(`<div class="day ${monthMatch?"":"muted"} ${primary?`official-${primary.spsdType}`:""} ${isPast?"past-day":""}" data-date="${iso}" ${primary?`title="${escapeHtml(primary.detail)}"`:""}>
       <div class="day-top"><div class="day-number">${d.getDate()}</div>${primary?`<span class="day-status">${escapeHtml(primary.short)}</span>`:""}</div>
       <div class="day-events">${dayEvents.map(ev=>`<button class="event ${ev.category}" data-event-id="${ev.id}" title="${escapeHtml(ev.name)}">${ev.icon} ${escapeHtml(ev.name)}</button>`).join("")}</div>
-      <div class="day-countdown">${escapeHtml(distanceLabel)}</div>
+      <div class="day-distance-label">${escapeHtml(distanceLabel)}</div>
     </div>`);
   }
   $("calendarGrid").innerHTML=cells.join("");

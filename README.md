@@ -1,12 +1,10 @@
-# M. Sander Parent Hub — Calendar countdown v3
+# Calendar restored + countdown fixed
 
-Fixes the grey-dot bug.
+This version starts from the last working full calendar.
 
-Hovering over a day now shows a real text badge inside the calendar cell:
-- Today
-- Tomorrow
-- Yesterday
-- X days away
-- X days ago
-
-The countdown is rendered as an actual HTML element rather than CSS-generated content.
+Changes:
+- Restores the complete calendar grid.
+- Keeps the existing interactive hover effect.
+- Shows a real visible countdown badge inside the hovered date:
+  Today / Tomorrow / Yesterday / X days away / X days ago.
+- Does not modify or remove the calendar HTML structure.

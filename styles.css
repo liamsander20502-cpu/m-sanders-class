@@ -932,56 +932,42 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
 }
 
 
-/* ======================================================
-   Calendar countdown v3
-   Real text element instead of CSS-generated attr().
-   ====================================================== */
+/* ===== Countdown label repair: preserves the working calendar grid ===== */
 .day::before {
   display: none !important;
   content: none !important;
 }
 
-.day-countdown {
+.day-distance-label {
   position: absolute;
   left: 50%;
   bottom: 8px;
-  z-index: 20;
-  transform: translate(-50%, 7px) scale(.96);
-  min-width: max-content;
-  max-width: calc(100% - 14px);
+  z-index: 25;
+  transform: translate(-50%, 6px);
   padding: 5px 9px;
   border-radius: 999px;
-  background: rgba(31,41,55,.94);
+  background: #273142;
   color: #fff;
   box-shadow: 0 7px 18px rgba(15,23,42,.16);
   font-size: .64rem;
-  font-weight: 850;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: .01em;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition:
-    opacity .15s ease,
-    transform .15s ease,
-    visibility .15s ease;
+  transition: opacity .14s ease, transform .14s ease, visibility .14s ease;
 }
 
-.day:hover .day-countdown,
-.day.is-hovered .day-countdown {
+.day:hover .day-distance-label,
+.day.is-hovered .day-distance-label {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0) scale(1);
+  transform: translate(-50%, 0);
 }
 
-/* Make today's label feel slightly special. */
-.day .day-countdown {
-  border: 1px solid rgba(255,255,255,.12);
-}
-
-@media (max-width:720px) {
-  .day-countdown {
+@media (max-width: 720px) {
+  .day-distance-label {
     bottom: 5px;
     padding: 4px 6px;
     font-size: .55rem;
@@ -989,7 +975,7 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
 }
 
 @media print {
-  .day-countdown {
+  .day-distance-label {
     display: none !important;
   }
 }
