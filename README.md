@@ -1,8 +1,11 @@
-# M. Sander Parent Hub update
+# M. Sander Parent Hub — Calendar repair
 
-Changes:
-- Removed the absences feature completely.
-- Removed absence buttons, forms, counters, and teacher absence view.
-- Restored seasonal background styling on the Calendar page.
-- Kept the compact/normal month header.
-- Calendar remains clean and readable with subtle month-specific atmosphere.
+This fixes the underlying navigation bug that caused the calendar grid to disappear.
+
+- Restores the complete month calendar.
+- Calendar and Site Editor now display separately as intended.
+- Keeps seasonal backgrounds.
+- Keeps compact month headers.
+- Keeps the Site Editor.
+- Keeps absences removed.
+- No day-counter / hover countdown code.

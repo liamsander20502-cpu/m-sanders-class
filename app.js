@@ -139,8 +139,17 @@ function showView(name){
   state.view=name;
   document.querySelectorAll(".view").forEach(el=>el.classList.add("hidden"));
   const map={home:"homeView",calendar:"calendarView",edit:"editView"};
-  $(map[name]).classList.remove("hidden");
-  
+  const target=$(map[name]);
+  if(target) target.classList.remove("hidden");
+
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
+  renderRole();
+
+  if(name==="home") renderHome();
+  if(name==="calendar") renderCalendar();
+  if(name==="edit") populateHomeEditor();
+}
+
 function renderEditorEvents(){
   const box=$("editorEventList");
   if(!box)return;
@@ -152,12 +161,19 @@ function renderEditorEvents(){
   box.innerHTML=events.map(ev=>`
     <div class="editor-event-row">
       <div class="editor-event-date">${formatDate(ev.date,{month:"short",day:"numeric"})}</div>
-      <div class="editor-event-main"><strong>${ev.icon} ${escapeHtml(ev.name)}</strong><small>${escapeHtml(ev.category)}</small></div>
+      <div class="editor-event-main">
+        <strong>${ev.icon} ${escapeHtml(ev.name)}</strong>
+        <small>${escapeHtml(ev.category)}</small>
+      </div>
       <button class="danger-text delete-editor-event" data-id="${ev.id}" type="button">Delete</button>
     </div>`).join("");
+
   document.querySelectorAll(".delete-editor-event").forEach(btn=>btn.addEventListener("click",()=>{
     state.events=state.events.filter(ev=>String(ev.id)!==btn.dataset.id);
-    saveSite();renderEditorEvents();renderHome();renderCalendar();
+    saveSite();
+    renderEditorEvents();
+    renderHome();
+    renderCalendar();
   }));
 }
 
@@ -165,17 +181,21 @@ function showEditorPanel(name){
   document.querySelectorAll(".editor-panel").forEach(p=>p.classList.add("hidden"));
   document.querySelectorAll(".editor-tab").forEach(t=>t.classList.toggle("active",t.dataset.editorPanel===name));
   const map={homepage:"editorHomepage",learning:"editorLearning",events:"editorEvents",links:"editorLinks"};
-  $(map[name]).classList.remove("hidden");
-  if(name==="events")renderEditorEvents();
+  const panel=$(map[name]);
+  if(panel) panel.classList.remove("hidden");
+  if(name==="events") renderEditorEvents();
 }
 
-document.querySelectorAll(".editor-tab").forEach(btn=>btn.addEventListener("click",()=>showEditorPanel(btn.dataset.editorPanel)));
+document.querySelectorAll(".editor-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>showEditorPanel(btn.dataset.editorPanel));
+});
 
 $("saveHomepageBtn").addEventListener("click",()=>{
   state.home.reminder=$("editReminder").value.trim();
   state.home.classHeading=$("editClassHeading").value.trim()||"Welcome to Our Class";
   state.home.familyNote=$("editFamilyNote").value.trim();
-  saveSite();renderHome();
+  saveSite();
+  renderHome();
 });
 
 $("saveLearningBtn").addEventListener("click",()=>{
@@ -183,13 +203,17 @@ $("saveLearningBtn").addEventListener("click",()=>{
   state.home.learning.math=$("editMath").value.trim();
   state.home.learning.science=$("editScience").value.trim();
   state.home.learning.focus=$("editFocus").value.trim();
-  saveSite();renderHome();
+  saveSite();
+  renderHome();
 });
 
 $("editorAddEventBtn").addEventListener("click",()=>{
   const date=$("editorEventDate").value;
   const name=$("editorEventName").value.trim();
-  if(!date||!name){$("editorStatus").textContent="Add a date and event name first.";return}
+  if(!date||!name){
+    $("editorStatus").textContent="Add a date and event name first.";
+    return;
+  }
   state.events.push({
     id:Date.now(),
     date,
@@ -198,7 +222,10 @@ $("editorAddEventBtn").addEventListener("click",()=>{
     icon:$("editorEventIcon").value
   });
   $("editorEventName").value="";
-  saveSite();renderEditorEvents();renderHome();renderCalendar();
+  saveSite();
+  renderEditorEvents();
+  renderHome();
+  renderCalendar();
 });
 
 $("saveLinksBtn").addEventListener("click",()=>{
@@ -206,14 +233,6 @@ $("saveLinksBtn").addEventListener("click",()=>{
   state.home.links.spsd=$("editSpsdLink").value.trim();
   saveSite();
 });
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
-  renderRole();
-  if(name==="home")renderHome();
-  if(name==="calendar")renderCalendar();
-  if(name==="absences")renderAbsences();
-  if(name==="edit")populateHomeEditor();
-}
 
 function renderHome(){
   const now=new Date(); now.setHours(12,0,0,0);
