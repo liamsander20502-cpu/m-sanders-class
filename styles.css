@@ -34,3 +34,53 @@ dialog{border:0;border-radius:16px;padding:0;width:min(430px,calc(100% - 24px))}
 .splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:linear-gradient(135deg,#274a89,#5378c5);color:#fff;animation:splashOut .8s 2.4s forwards}.splash-inner{text-align:center}.splash-small{font-size:.74rem;font-weight:850;letter-spacing:.14em}.splash-icons{display:flex;justify-content:center;gap:12px;margin:18px 0}.splash-icons span{display:grid;place-items:center;width:55px;height:55px;border-radius:17px;background:#fff;font-size:1.8rem}.splash-title{font-size:2.5rem;font-weight:850}@keyframes splashOut{to{opacity:0;visibility:hidden}}
 @media(max-width:720px){.topbar{align-items:flex-start;flex-direction:column}.calendar-tools{align-items:flex-start;flex-direction:column}.day{min-height:88px;padding:5px}.day-label{font-size:.5rem}.event{font-size:.58rem;padding:4px}.editor-grid{grid-template-columns:1fr}.month-heading-row h2{font-size:1.65rem}}
 @media print{.topbar,.calendar-tools .primary{display:none!important}.shell{padding:0}.calendar-surface{background:#fff;padding:0}.day{min-height:125px;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ===== Sleek interactive calendar cells ===== */
+.day {
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease,
+    background-color .16s ease,
+    opacity .16s ease;
+  transform-origin: center;
+}
+
+@media (hover:hover) {
+  .day:hover {
+    z-index: 6;
+    transform: translateY(-4px) scale(1.018);
+    box-shadow:
+      0 12px 28px rgba(31,41,55,.12),
+      0 3px 8px rgba(31,41,55,.06);
+    outline: 1px solid rgba(49,93,204,.18);
+    outline-offset: -1px;
+  }
+
+  .day:hover .day-number {
+    transform: scale(1.06);
+  }
+
+  .day.other:hover {
+    opacity: .86;
+  }
+}
+
+.day-number {
+  transition: transform .16s ease;
+}
+
+/* Touch devices: subtle press feedback instead of hover */
+@media (hover:none) {
+  .day:active {
+    transform: scale(.985);
+    box-shadow: inset 0 0 0 1px rgba(49,93,204,.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .day,
+  .day-number {
+    transition: none !important;
+  }
+}
