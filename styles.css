@@ -392,26 +392,207 @@ dialog::backdrop { background: rgba(15,23,42,.4); }
   .day { min-height: 130px; }
 }
 
-/* Automatic monthly themes */
-.themed-calendar{position:relative;isolation:isolate;--month-accent:var(--brand);--month-soft:var(--brand-soft);--month-ink:var(--ink)}
-.themed-calendar:before{content:"";position:absolute;z-index:-2;inset:-12px;border-radius:22px;background:var(--month-bg,transparent);pointer-events:none}
-.themed-calendar .calendar-wrap{position:relative;z-index:1;border-color:var(--month-accent)}
-.themed-calendar .weekdays>div{background:var(--month-soft);color:var(--month-ink)}
-.theme-label{display:inline-flex;align-items:center;gap:7px;margin:0 0 10px;padding:6px 10px;border:1px solid var(--month-accent);border-radius:999px;background:var(--month-soft);color:var(--month-ink);font-size:.82rem;font-weight:750}
-.theme-decor{position:absolute;z-index:0;inset:18px 2px auto auto;font-size:clamp(1.5rem,4vw,2.5rem);letter-spacing:.12em;opacity:.88;pointer-events:none;user-select:none}
-.themed-calendar .month-nav h2{color:var(--month-ink)}
-.themed-calendar .primary{background:var(--month-accent);border-color:var(--month-accent)}
-.month-0{--month-accent:#3976a8;--month-soft:#e7f3fb;--month-ink:#244b68;--month-bg:linear-gradient(135deg,#f4faff,#edf7ff 55%,#fff)}
-.month-1{--month-accent:#b74f72;--month-soft:#fdebf1;--month-ink:#7d3650;--month-bg:linear-gradient(135deg,#fff6f9,#fdebf1 55%,#fff)}
-.month-2{--month-accent:#478a55;--month-soft:#eaf6e9;--month-ink:#315f3a;--month-bg:linear-gradient(135deg,#f5fbf3,#eaf6e9 55%,#fff)}
-.month-3{--month-accent:#4b78a8;--month-soft:#e9f2fb;--month-ink:#335878;--month-bg:linear-gradient(135deg,#f4f9ff,#e9f2fb 55%,#fff)}
-.month-4{--month-accent:#7d6ca8;--month-soft:#f0ecfa;--month-ink:#584a7c;--month-bg:linear-gradient(135deg,#faf7ff,#f0ecfa 55%,#fff)}
-.month-5{--month-accent:#c58a24;--month-soft:#fff4d9;--month-ink:#7c591b;--month-bg:linear-gradient(135deg,#fffaf0,#fff4d9 55%,#fff)}
-.month-6{--month-accent:#267f9b;--month-soft:#e3f6fa;--month-ink:#1e5f72;--month-bg:linear-gradient(135deg,#f0fbfd,#e3f6fa 55%,#fff)}
-.month-7{--month-accent:#d07b32;--month-soft:#fff0df;--month-ink:#8a5228;--month-bg:linear-gradient(135deg,#fff8ef,#fff0df 55%,#fff)}
-.month-8{--month-accent:#a95f32;--month-soft:#f8eadf;--month-ink:#704123;--month-bg:linear-gradient(135deg,#fff8f1,#f8eadf 55%,#fff)}
-.month-9{--month-accent:#7a3f91;--month-soft:#f0e6f5;--month-ink:#542c65;--month-bg:linear-gradient(135deg,#fbf5ff,#f0e6f5 55%,#fff7ed)}
-.month-10{--month-accent:#8a6335;--month-soft:#f4eadc;--month-ink:#624725;--month-bg:linear-gradient(135deg,#fbf7f0,#f4eadc 55%,#fff)}
-.month-11{--month-accent:#3f6f73;--month-soft:#e7f1f1;--month-ink:#2c5053;--month-bg:linear-gradient(135deg,#f4fafa,#e7f1f1 55%,#fff)}
-@media(max-width:620px){.theme-decor{position:static;margin:-4px 0 8px;text-align:right;font-size:1.45rem}}
-@media print{.theme-decor,.theme-label{display:none!important}.themed-calendar:before{display:none}}
+
+/* =========================================================
+   Seasonal Calendar Theme System v2
+   Decorative header is in normal document flow: no overlap.
+   ========================================================= */
+.themed-calendar {
+  --theme-accent: #355ec9;
+  --theme-accent-2: #7b93d9;
+  --theme-soft: #edf2ff;
+  --theme-deep: #243f83;
+  --theme-glow: rgba(53, 94, 201, .13);
+}
+
+.month-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 154px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, .65fr);
+  align-items: center;
+  gap: 18px;
+  margin: 2px 0 20px;
+  padding: 24px 28px;
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 28%, var(--line));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 16% 18%, color-mix(in srgb, var(--theme-accent-2) 17%, transparent) 0 5%, transparent 5.5%),
+    radial-gradient(circle at 42% 82%, color-mix(in srgb, var(--theme-accent) 10%, transparent) 0 4%, transparent 4.5%),
+    linear-gradient(120deg, var(--theme-soft), #fff 72%);
+}
+
+.month-hero::after {
+  content: "";
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  right: -72px;
+  top: -88px;
+  border-radius: 50%;
+  background: var(--theme-glow);
+  pointer-events: none;
+}
+
+.month-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 610px;
+}
+
+.month-kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  margin-bottom: 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-accent) 11%, white);
+  color: var(--theme-deep);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .09em;
+}
+
+.month-hero h2 {
+  margin: 0 0 7px;
+  color: var(--theme-deep);
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  line-height: 1.05;
+  letter-spacing: -.025em;
+}
+
+.month-hero p {
+  max-width: 570px;
+  margin: 0;
+  color: color-mix(in srgb, var(--theme-deep) 75%, #667085);
+  font-size: .96rem;
+  line-height: 1.5;
+}
+
+.month-scene {
+  position: relative;
+  z-index: 2;
+  height: 108px;
+  min-width: 220px;
+}
+
+.theme-object {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(255,255,255,.92);
+  box-shadow: 0 8px 24px rgba(24, 34, 52, .08);
+  font-size: 1.75rem;
+  transform: rotate(var(--r, 0deg));
+}
+
+.theme-object:nth-child(1){right:148px;top:7px;--r:-8deg}
+.theme-object:nth-child(2){right:89px;top:33px;--r:7deg;width:56px;height:56px;font-size:2.05rem}
+.theme-object:nth-child(3){right:27px;top:4px;--r:10deg}
+.theme-object:nth-child(4){right:159px;top:64px;--r:5deg;width:40px;height:40px;font-size:1.45rem}
+.theme-object:nth-child(5){right:31px;top:63px;--r:-8deg;width:42px;height:42px;font-size:1.5rem}
+.theme-object:nth-child(6){right:210px;top:38px;--r:9deg;width:36px;height:36px;font-size:1.28rem}
+
+.theme-spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--theme-accent);
+  opacity: .42;
+}
+.theme-spark.s1{right:8px;top:42px}
+.theme-spark.s2{right:131px;top:87px;width:6px;height:6px}
+.theme-spark.s3{right:205px;top:10px;width:5px;height:5px}
+
+.themed-calendar .calendar-wrap {
+  border-color: color-mix(in srgb, var(--theme-accent) 35%, var(--line));
+  box-shadow: 0 10px 28px rgba(28, 39, 60, .055);
+}
+
+.themed-calendar .weekdays > div {
+  background: color-mix(in srgb, var(--theme-soft) 86%, white);
+  color: var(--theme-deep);
+}
+
+.themed-calendar .month-nav h2 {
+  color: var(--theme-deep);
+}
+
+.themed-calendar .primary {
+  background: var(--theme-accent);
+  border-color: var(--theme-accent);
+}
+
+.themed-calendar .icon-btn:hover,
+.themed-calendar .secondary:hover {
+  border-color: color-mix(in srgb, var(--theme-accent) 48%, var(--line));
+  background: var(--theme-soft);
+}
+
+.themed-calendar .day:hover {
+  background: color-mix(in srgb, var(--theme-soft) 27%, white);
+}
+
+/* Jan - Winter */
+.theme-month-0 {--theme-accent:#4d82b8;--theme-accent-2:#a8cbe8;--theme-soft:#eef8ff;--theme-deep:#2f5678;--theme-glow:rgba(77,130,184,.14)}
+/* Feb - Kindness */
+.theme-month-1 {--theme-accent:#bd5779;--theme-accent-2:#e8a5ba;--theme-soft:#fff0f5;--theme-deep:#7e3650;--theme-glow:rgba(189,87,121,.13)}
+/* Mar - Spring */
+.theme-month-2 {--theme-accent:#4c8b58;--theme-accent-2:#a8c99d;--theme-soft:#f0f9ed;--theme-deep:#32613b;--theme-glow:rgba(76,139,88,.13)}
+/* Apr - Rain */
+.theme-month-3 {--theme-accent:#527ea7;--theme-accent-2:#a9c1d9;--theme-soft:#eef6fb;--theme-deep:#365873;--theme-glow:rgba(82,126,167,.13)}
+/* May - Garden */
+.theme-month-4 {--theme-accent:#8a6aa3;--theme-accent-2:#c7a8d2;--theme-soft:#f8f1fb;--theme-deep:#5f4971;--theme-glow:rgba(138,106,163,.13)}
+/* Jun - Sunshine */
+.theme-month-5 {--theme-accent:#c48a29;--theme-accent-2:#e9c46b;--theme-soft:#fff8e5;--theme-deep:#7a581f;--theme-glow:rgba(196,138,41,.14)}
+/* Jul - Summer */
+.theme-month-6 {--theme-accent:#2c8197;--theme-accent-2:#84c4d2;--theme-soft:#eaf9fb;--theme-deep:#205b69;--theme-glow:rgba(44,129,151,.13)}
+/* Aug - Back to school */
+.theme-month-7 {--theme-accent:#d07932;--theme-accent-2:#e7b372;--theme-soft:#fff3e5;--theme-deep:#875024;--theme-glow:rgba(208,121,50,.14)}
+/* Sep - Harvest */
+.theme-month-8 {--theme-accent:#a75f34;--theme-accent-2:#d5a06e;--theme-soft:#fbf0e5;--theme-deep:#724122;--theme-glow:rgba(167,95,52,.13)}
+/* Oct - Halloween */
+.theme-month-9 {--theme-accent:#774492;--theme-accent-2:#e09842;--theme-soft:#f6edf9;--theme-deep:#4e2c60;--theme-glow:rgba(119,68,146,.14)}
+/* Nov - Cozy fall */
+.theme-month-10 {--theme-accent:#8d6538;--theme-accent-2:#c39c6c;--theme-soft:#f7efe5;--theme-deep:#634725;--theme-glow:rgba(141,101,56,.13)}
+/* Dec - Winter cheer */
+.theme-month-11 {--theme-accent:#3f7375;--theme-accent-2:#8fb8b7;--theme-soft:#edf7f6;--theme-deep:#2b5152;--theme-glow:rgba(63,115,117,.13)}
+
+@media (max-width: 720px) {
+  .month-hero {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .month-scene {
+    height: 90px;
+    min-width: 0;
+  }
+  .theme-object:nth-child(1){left:8%;right:auto}
+  .theme-object:nth-child(2){left:29%;right:auto}
+  .theme-object:nth-child(3){left:54%;right:auto}
+  .theme-object:nth-child(4){left:16%;right:auto}
+  .theme-object:nth-child(5){left:68%;right:auto}
+  .theme-object:nth-child(6){left:82%;right:auto}
+  .theme-spark.s1{left:48%;right:auto}
+  .theme-spark.s2{left:61%;right:auto}
+  .theme-spark.s3{left:2%;right:auto}
+}
+
+@media print {
+  .month-hero {
+    min-height: auto;
+    padding: 12px 0;
+    margin-bottom: 12px;
+    border: 0;
+    background: none;
+  }
+  .month-scene { display:none; }
+  .month-kicker { display:none; }
+}

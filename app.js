@@ -55,19 +55,85 @@ function showView(name) {
 
   
 const monthThemes = [
-{name:"Snow Day Season",decor:"❄️ ⛄ ❄️"},{name:"Kindness & Hearts",decor:"💗 ✏️ 💗"},
-{name:"Signs of Spring",decor:"🌱 ☘️ 🌱"},{name:"Rainy Day Reading",decor:"🌧️ ☂️ 📚"},
-{name:"Growing & Blooming",decor:"🌷 🐝 🌼"},{name:"Hello, Summer!",decor:"☀️ 🍓 🕶️"},
-{name:"Summer Adventure",decor:"🏖️ ☀️ 🍉"},{name:"Back-to-School Buzz",decor:"✏️ 🎒 📚"},
-{name:"Apple & Autumn",decor:"🍎 ✏️ 🍂"},{name:"Halloween",decor:"🎃 👻 🦇"},
-{name:"Cozy Fall",decor:"🍁 🧣 🍂"},{name:"Winter Cheer",decor:"❄️ 🎁 ⛄"}];
+  {
+    name:"Snowy Starts", kicker:"JANUARY • WINTER",
+    blurb:"A crisp winter calendar for routines, reading days, and fresh starts.",
+    icons:["❄️","⛄","🧤","📘","☕","✨"]
+  },
+  {
+    name:"Kindness Month", kicker:"FEBRUARY • KINDNESS",
+    blurb:"Warm hearts, friendship, and little moments of classroom kindness.",
+    icons:["💗","💌","🫶","✏️","💕","🌟"]
+  },
+  {
+    name:"Spring Awakening", kicker:"MARCH • SPRING",
+    blurb:"New growth, brighter days, and the first signs of spring.",
+    icons:["🌱","☘️","🌷","🐦","🌤️","🌿"]
+  },
+  {
+    name:"Rainy Day Reading", kicker:"APRIL • RAIN & READING",
+    blurb:"Rain boots, umbrellas, books, and cozy classroom learning.",
+    icons:["☂️","🌧️","📚","🌈","💧","🥾"]
+  },
+  {
+    name:"Garden in Bloom", kicker:"MAY • GARDEN",
+    blurb:"Flowers, bees, and a colourful month of growing and learning.",
+    icons:["🌷","🐝","🌼","🦋","🌿","🌸"]
+  },
+  {
+    name:"Hello, Summer!", kicker:"JUNE • SUNSHINE",
+    blurb:"Bright days, year-end celebrations, and summer just around the corner.",
+    icons:["☀️","🍓","🕶️","🌈","🍦","⭐"]
+  },
+  {
+    name:"Summer Adventure", kicker:"JULY • SUMMER",
+    blurb:"Sunny days, outdoor adventures, and a playful summer feel.",
+    icons:["🏖️","☀️","🍉","🩴","🌊","🐚"]
+  },
+  {
+    name:"Back-to-School Buzz", kicker:"AUGUST • BACK TO SCHOOL",
+    blurb:"Fresh pencils, new routines, backpacks, books, and a bright new start.",
+    icons:["🎒","✏️","📚","🍎","🖍️","📏"]
+  },
+  {
+    name:"Apple & Autumn", kicker:"SEPTEMBER • AUTUMN",
+    blurb:"Apples, notebooks, changing leaves, and the rhythm of a new school year.",
+    icons:["🍎","🍂","📓","✏️","🍁","📚"]
+  },
+  {
+    name:"Spooky School Days", kicker:"OCTOBER • HALLOWEEN",
+    blurb:"Pumpkins, friendly ghosts, bats, and just enough spooky fun for October.",
+    icons:["🎃","👻","🦇","🕸️","🍬","🌙"]
+  },
+  {
+    name:"Cozy Fall", kicker:"NOVEMBER • LATE FALL",
+    blurb:"Warm colours, falling leaves, and a cozy classroom feel.",
+    icons:["🍁","🧣","🍂","📚","☕","🌰"]
+  },
+  {
+    name:"Winter Cheer", kicker:"DECEMBER • WINTER",
+    blurb:"Snowflakes, mittens, lights, and a cheerful winter finish to the year.",
+    icons:["❄️","⛄","🧤","✨","🎁","🌲"]
+  }
+];
 
-function applyMonthTheme(){
- const view=$("calendarView"); if(!view)return;
- for(let i=0;i<12;i++)view.classList.remove(`month-${i}`);
- const month=state.cursor.getMonth(); view.classList.add(`month-${month}`);
- $("themeDecor").textContent=monthThemes[month].decor;
- $("themeLabel").textContent=`${monthThemes[month].decor.split(" ")[0]} ${monthThemes[month].name}`;
+function applyMonthTheme() {
+  const view = $("calendarView");
+  if (!view) return;
+
+  for (let i = 0; i < 12; i++) view.classList.remove(`theme-month-${i}`);
+
+  const month = state.cursor.getMonth();
+  const theme = monthThemes[month];
+  view.classList.add(`theme-month-${month}`);
+
+  $("themeKicker").textContent = theme.kicker;
+  $("themeName").textContent = theme.name;
+  $("themeBlurb").textContent = theme.blurb;
+
+  $("themeScene").innerHTML =
+    theme.icons.map(icon => `<span class="theme-object">${icon}</span>`).join("") +
+    `<i class="theme-spark s1"></i><i class="theme-spark s2"></i><i class="theme-spark s3"></i>`;
 }
 
 
@@ -278,19 +344,85 @@ function escapeHtml(str) {
 
 
 const monthThemes = [
-{name:"Snow Day Season",decor:"❄️ ⛄ ❄️"},{name:"Kindness & Hearts",decor:"💗 ✏️ 💗"},
-{name:"Signs of Spring",decor:"🌱 ☘️ 🌱"},{name:"Rainy Day Reading",decor:"🌧️ ☂️ 📚"},
-{name:"Growing & Blooming",decor:"🌷 🐝 🌼"},{name:"Hello, Summer!",decor:"☀️ 🍓 🕶️"},
-{name:"Summer Adventure",decor:"🏖️ ☀️ 🍉"},{name:"Back-to-School Buzz",decor:"✏️ 🎒 📚"},
-{name:"Apple & Autumn",decor:"🍎 ✏️ 🍂"},{name:"Halloween",decor:"🎃 👻 🦇"},
-{name:"Cozy Fall",decor:"🍁 🧣 🍂"},{name:"Winter Cheer",decor:"❄️ 🎁 ⛄"}];
+  {
+    name:"Snowy Starts", kicker:"JANUARY • WINTER",
+    blurb:"A crisp winter calendar for routines, reading days, and fresh starts.",
+    icons:["❄️","⛄","🧤","📘","☕","✨"]
+  },
+  {
+    name:"Kindness Month", kicker:"FEBRUARY • KINDNESS",
+    blurb:"Warm hearts, friendship, and little moments of classroom kindness.",
+    icons:["💗","💌","🫶","✏️","💕","🌟"]
+  },
+  {
+    name:"Spring Awakening", kicker:"MARCH • SPRING",
+    blurb:"New growth, brighter days, and the first signs of spring.",
+    icons:["🌱","☘️","🌷","🐦","🌤️","🌿"]
+  },
+  {
+    name:"Rainy Day Reading", kicker:"APRIL • RAIN & READING",
+    blurb:"Rain boots, umbrellas, books, and cozy classroom learning.",
+    icons:["☂️","🌧️","📚","🌈","💧","🥾"]
+  },
+  {
+    name:"Garden in Bloom", kicker:"MAY • GARDEN",
+    blurb:"Flowers, bees, and a colourful month of growing and learning.",
+    icons:["🌷","🐝","🌼","🦋","🌿","🌸"]
+  },
+  {
+    name:"Hello, Summer!", kicker:"JUNE • SUNSHINE",
+    blurb:"Bright days, year-end celebrations, and summer just around the corner.",
+    icons:["☀️","🍓","🕶️","🌈","🍦","⭐"]
+  },
+  {
+    name:"Summer Adventure", kicker:"JULY • SUMMER",
+    blurb:"Sunny days, outdoor adventures, and a playful summer feel.",
+    icons:["🏖️","☀️","🍉","🩴","🌊","🐚"]
+  },
+  {
+    name:"Back-to-School Buzz", kicker:"AUGUST • BACK TO SCHOOL",
+    blurb:"Fresh pencils, new routines, backpacks, books, and a bright new start.",
+    icons:["🎒","✏️","📚","🍎","🖍️","📏"]
+  },
+  {
+    name:"Apple & Autumn", kicker:"SEPTEMBER • AUTUMN",
+    blurb:"Apples, notebooks, changing leaves, and the rhythm of a new school year.",
+    icons:["🍎","🍂","📓","✏️","🍁","📚"]
+  },
+  {
+    name:"Spooky School Days", kicker:"OCTOBER • HALLOWEEN",
+    blurb:"Pumpkins, friendly ghosts, bats, and just enough spooky fun for October.",
+    icons:["🎃","👻","🦇","🕸️","🍬","🌙"]
+  },
+  {
+    name:"Cozy Fall", kicker:"NOVEMBER • LATE FALL",
+    blurb:"Warm colours, falling leaves, and a cozy classroom feel.",
+    icons:["🍁","🧣","🍂","📚","☕","🌰"]
+  },
+  {
+    name:"Winter Cheer", kicker:"DECEMBER • WINTER",
+    blurb:"Snowflakes, mittens, lights, and a cheerful winter finish to the year.",
+    icons:["❄️","⛄","🧤","✨","🎁","🌲"]
+  }
+];
 
-function applyMonthTheme(){
- const view=$("calendarView"); if(!view)return;
- for(let i=0;i<12;i++)view.classList.remove(`month-${i}`);
- const month=state.cursor.getMonth(); view.classList.add(`month-${month}`);
- $("themeDecor").textContent=monthThemes[month].decor;
- $("themeLabel").textContent=`${monthThemes[month].decor.split(" ")[0]} ${monthThemes[month].name}`;
+function applyMonthTheme() {
+  const view = $("calendarView");
+  if (!view) return;
+
+  for (let i = 0; i < 12; i++) view.classList.remove(`theme-month-${i}`);
+
+  const month = state.cursor.getMonth();
+  const theme = monthThemes[month];
+  view.classList.add(`theme-month-${month}`);
+
+  $("themeKicker").textContent = theme.kicker;
+  $("themeName").textContent = theme.name;
+  $("themeBlurb").textContent = theme.blurb;
+
+  $("themeScene").innerHTML =
+    theme.icons.map(icon => `<span class="theme-object">${icon}</span>`).join("") +
+    `<i class="theme-spark s1"></i><i class="theme-spark s2"></i><i class="theme-spark s3"></i>`;
 }
 
 
