@@ -1,8 +1,9 @@
-# M. Sander Parent Hub update
+# M. Sander Parent Hub — Interactive Calendar
 
-Changes:
-- Removed the absences feature completely.
-- Removed absence buttons, forms, counters, and teacher absence view.
-- Restored seasonal background styling on the Calendar page.
-- Kept the compact/normal month header.
-- Calendar remains clean and readable with subtle month-specific atmosphere.
+Added:
+- Hover over any calendar day to see how far away it is.
+- Smart labels: Today, Tomorrow, Yesterday, X days away, X days ago.
+- Sleek floating tooltip.
+- Subtle lift/shadow interaction on hover.
+- Touch support: tap a day on phones/tablets to see the same information.
+- Reduced-motion accessibility support.
