@@ -3,15 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Classroom Parent Hub</title>
+  <title>École River Heights Parent Hub</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <div id="welcomeSplash" class="welcome-splash" aria-hidden="true">
+    <div class="welcome-splash-inner">
+      <div class="splash-school">ÉCOLE RIVER HEIGHTS</div>
+      <div class="splash-icons">
+        <span>✏️</span>
+        <span>🍎</span>
+        <span>📚</span>
+      </div>
+      <div class="splash-title">Welcome to Our Class</div>
+      <div class="splash-line"></div>
+    </div>
+  </div>
+
   <header class="topbar">
     <div class="brand">
       <div class="brand-mark">✦</div>
       <div>
-        <div class="eyebrow">CLASSROOM PARENT HUB</div>
+        <div class="eyebrow">ÉCOLE RIVER HEIGHTS • PARENT HUB</div>
         <h1>Welcome to Our Class</h1>
       </div>
     </div>
@@ -29,7 +43,6 @@
     <nav class="tabs" aria-label="Main navigation">
       <button class="tab active" data-view="home">Home</button>
       <button class="tab" data-view="calendar">Calendar</button>
-      <button class="tab teacher-only" data-view="import">AI Import</button>
       <button class="tab teacher-only" data-view="absences">Absences <span id="absenceBadge" class="badge">0</span></button>
       <button class="tab parent-only hidden" data-view="submit">Report Absence</button>
       <button class="tab teacher-only" data-view="edit">Edit Home</button>
@@ -87,7 +100,7 @@
           <button class="quick-action" data-go="calendar"><span>📅</span><strong>Calendar</strong><small>See the full month</small></button>
           <button class="quick-action parent-only hidden" data-go="submit"><span>✋</span><strong>Report Absence</strong><small>Tell the teacher privately</small></button>
           <button class="quick-action teacher-only" data-go="absences"><span>✋</span><strong>Absences</strong><small>Review family submissions</small></button>
-          <button class="quick-action" id="schoolSiteBtn"><span>🏫</span><strong>School Website</strong><small>School information</small></button>
+          <button class="quick-action" id="schoolSiteBtn"><span>🏫</span><strong>École River Heights</strong><small>Official school website</small></button>
           <button class="quick-action" id="spsdBtn"><span>🔗</span><strong>SPSD</strong><small>Division information</small></button>
         </div>
       </section>
@@ -128,41 +141,6 @@
       <div class="calendar-wrap">
         <div class="weekdays" id="weekdays"></div>
         <div class="calendar-grid" id="calendarGrid"></div>
-      </div>
-    </section>
-
-    <section id="importView" class="view hidden teacher-only">
-      <div class="section-head">
-        <div>
-          <div class="section-eyebrow">TEACHER TOOL</div>
-          <h2>AI Event Import</h2>
-          <p>Paste text or add a photo of a school calendar, newsletter, whiteboard, or schedule. Review everything before publishing.</p>
-        </div>
-      </div>
-
-      <div class="two-col">
-        <div class="panel">
-          <h3>1. Add source</h3>
-          <label class="field">
-            <span>Paste text</span>
-            <textarea id="importText" rows="10" placeholder="Sept. 8 – School photos&#10;Sept. 14 – Library&#10;Sept. 21 – Terry Fox Run"></textarea>
-          </label>
-          <label class="field">
-            <span>Upload image</span>
-            <input id="imageInput" type="file" accept="image/*" />
-          </label>
-          <div id="imagePreview" class="image-preview empty">No image selected</div>
-          <button id="extractBtn" class="primary wide">Extract events</button>
-          <p class="small">Pasted text is parsed in this prototype. Live photo reading will be connected later through a secure AI service.</p>
-        </div>
-
-        <div class="panel">
-          <h3>2. Review extracted events</h3>
-          <div id="reviewList" class="review-list">
-            <div class="empty-state">Extracted events will appear here.</div>
-          </div>
-          <button id="publishBtn" class="primary wide" disabled>Publish approved events</button>
-        </div>
       </div>
     </section>
 

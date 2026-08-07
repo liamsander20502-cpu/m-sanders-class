@@ -12,11 +12,7 @@ const state = {
       focus:"Building independence, kindness, and strong classroom routines"
     }
   },
-  events:[
-    {id:1,date:"2026-09-08",name:"Library",category:"recurring",icon:"📚"},
-    {id:2,date:"2026-09-10",name:"Gym",category:"recurring",icon:"🏃"},
-    {id:3,date:"2026-09-18",name:"School Photos",category:"special",icon:"📷"}
-  ],
+  events:[],
   absences:[
     {id:1,student:"Avery S.",start:"2026-09-22",end:"2026-09-23",note:"Family trip",status:"pending"}
   ],
@@ -112,14 +108,14 @@ function applyTheme(month,home=false){
 function renderRole(){
   document.querySelectorAll(".teacher-only").forEach(el=>el.classList.toggle("hidden",state.role!=="teacher"));
   document.querySelectorAll(".parent-only").forEach(el=>el.classList.toggle("hidden",state.role!=="parent"));
-  if(state.role==="parent"&&["import","absences","edit"].includes(state.view))showView("home");
+  if(state.role==="parent"&&["absences","edit"].includes(state.view))showView("home");
   if(state.role==="teacher"&&state.view==="submit")showView("home");
 }
 
 function showView(name){
   state.view=name;
   document.querySelectorAll(".view").forEach(el=>el.classList.add("hidden"));
-  const map={home:"homeView",calendar:"calendarView",import:"importView",absences:"absencesView",submit:"submitView",edit:"editView"};
+  const map={home:"homeView",calendar:"calendarView",absences:"absencesView",submit:"submitView",edit:"editView"};
   $(map[name]).classList.remove("hidden");
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
   renderRole();
@@ -184,25 +180,6 @@ function renderCalendar(){
 function openEventDialog(date=toISO(new Date())){$("eventDate").value=date;$("eventName").value="";$("eventCategory").value="school";$("eventIcon").value="📚";$("eventDialog").showModal()}
 function saveEvent(){const date=$("eventDate").value,name=$("eventName").value.trim();if(!date||!name)return;state.events.push({id:Date.now(),date,name,category:$("eventCategory").value,icon:$("eventIcon").value});renderCalendar();renderHome()}
 
-function parseEventsFromText(text){
-  const lines=text.split(/\n+/).map(s=>s.trim()).filter(Boolean),year=state.cursor.getFullYear(),results=[];
-  const months={jan:0,january:0,janvier:0,feb:1,february:1,février:1,fevrier:1,mar:2,march:2,mars:2,apr:3,april:3,avril:3,may:4,mai:4,jun:5,june:5,juin:5,jul:6,july:6,juillet:6,aug:7,august:7,août:7,aout:7,sep:8,sept:8,september:8,septembre:8,oct:9,october:9,octobre:9,nov:10,november:10,novembre:10,dec:11,december:11,décembre:11,decembre:11};
-  for(const line of lines){
-    const match=line.match(/^\s*([A-Za-zÀ-ÿ.]+)\s*(\d{1,2})(?:,\s*(\d{4}))?\s*[-–—:]\s*(.+)$/);if(!match)continue;
-    const key=match[1].toLowerCase().replace(".",""),month=months[key];if(month===undefined)continue;
-    const day=+match[2],eventYear=match[3]?+match[3]:year,name=match[4].trim(),lower=name.toLowerCase();
-    let icon="⭐",category="school";
-    if(lower.includes("library")||lower.includes("biblioth")){icon="📚";category="recurring"}else if(lower.includes("gym")||lower.includes("run"))icon="🏃";else if(lower.includes("photo")||lower.includes("picture")){icon="📷";category="special"}else if(lower.includes("trip")||lower.includes("bus")||lower.includes("sortie")){icon="🚌";category="special"}else if(lower.includes("art"))icon="🎨";else if(lower.includes("music")||lower.includes("musique"))icon="🎵";
-    results.push({id:Date.now()+results.length,approved:true,date:new Date(eventYear,month,day,12).toISOString().slice(0,10),name,category,icon});
-  }
-  return results;
-}
-function renderReview(){
-  if(!state.extracted.length){$("reviewList").innerHTML=`<div class="empty-state">No events found. Try “Sept. 8 – School photos”.</div>`;$("publishBtn").disabled=true;return}
-  $("reviewList").innerHTML=state.extracted.map(ev=>`<label class="review-card"><input type="checkbox" data-review-id="${ev.id}" ${ev.approved?"checked":""}><div><strong>${ev.icon} ${escapeHtml(ev.name)}</strong><div class="small">${formatDate(ev.date,{month:"short",day:"numeric",year:"numeric"})}</div></div></label>`).join("");
-  document.querySelectorAll("[data-review-id]").forEach(box=>box.addEventListener("change",()=>{const ev=state.extracted.find(x=>String(x.id)===box.dataset.reviewId);if(ev)ev.approved=box.checked}));
-  $("publishBtn").disabled=false;
-}
 function renderAbsences(){
   $("absenceBadge").textContent=state.absences.filter(a=>a.status==="pending").length;
   $("absenceList").innerHTML=state.absences.length?state.absences.map(a=>`<div class="absence-card"><div><strong>${escapeHtml(a.student)}</strong><div>${formatDate(a.start,{month:"short",day:"numeric",year:"numeric"})}${a.end!==a.start?` – ${formatDate(a.end,{month:"short",day:"numeric",year:"numeric"})}`:""}</div>${a.note?`<div class="small">${escapeHtml(a.note)}</div>`:""}</div><div><span class="status ${a.status==="ack"?"ack":""}">${a.status==="ack"?"Acknowledged":"Pending"}</span>${a.status!=="ack"?`<div><button class="secondary ack-btn" data-id="${a.id}">Acknowledge</button></div>`:""}</div></div>`).join(""):`<div class="empty-state">No planned absences submitted.</div>`;
@@ -219,12 +196,17 @@ $("nextMonth").addEventListener("click",()=>{state.cursor=new Date(state.cursor.
 $("addEventBtn").addEventListener("click",()=>openEventDialog());
 $("printBtn").addEventListener("click",()=>window.print());
 $("saveEventBtn").addEventListener("click",e=>{if(!$("eventDate").value||!$("eventName").value.trim()){e.preventDefault();return}saveEvent()});
-$("imageInput").addEventListener("change",e=>{const file=e.target.files?.[0];if(!file)return;const url=URL.createObjectURL(file);$("imagePreview").classList.remove("empty");$("imagePreview").innerHTML=`<img src="${url}" alt="Uploaded calendar source preview">`});
-$("extractBtn").addEventListener("click",()=>{state.extracted=parseEventsFromText($("importText").value);renderReview()});
-$("publishBtn").addEventListener("click",()=>{state.extracted.filter(e=>e.approved).forEach(ev=>state.events.push({...ev,id:Date.now()+Math.random()}));state.extracted=[];$("importText").value="";renderReview();renderHome();showView("calendar")});
 $("submitAbsenceBtn").addEventListener("click",()=>{const start=$("absenceStart").value;if(!start)return;state.absences.push({id:Date.now(),student:$("studentSelect").value,start,end:$("absenceEnd").value||start,note:$("absenceNote").value.trim(),status:"pending"});$("absenceStart").value="";$("absenceEnd").value="";$("absenceNote").value="";$("submitMessage").classList.remove("hidden");renderAbsences();setTimeout(()=>$("submitMessage").classList.add("hidden"),3000)});
 $("saveHomeBtn").addEventListener("click",()=>{state.home.reminder=$("editReminder").value.trim();state.home.learning.french=$("editFrench").value.trim();state.home.learning.math=$("editMath").value.trim();state.home.learning.science=$("editScience").value.trim();state.home.learning.focus=$("editFocus").value.trim();renderHome();$("homeSaved").classList.remove("hidden");setTimeout(()=>$("homeSaved").classList.add("hidden"),2500)});
-$("schoolSiteBtn").addEventListener("click",()=>alert("Add your school's website link here once you decide which school page you want to use."));
+$("schoolSiteBtn").addEventListener("click",()=>window.open("https://www.spsd.sk.ca/riverheights","_blank"));
 $("spsdBtn").addEventListener("click",()=>window.open("https://www.spsd.sk.ca/","_blank"));
 
-renderRole();renderHome();renderCalendar();renderAbsences();
+
+function runWelcomeSplash(){
+  const splash = $("welcomeSplash");
+  if(!splash) return;
+  window.setTimeout(()=>splash.classList.add("is-leaving"), 1550);
+  window.setTimeout(()=>splash.remove(), 2350);
+}
+
+runWelcomeSplash();renderRole();renderHome();renderCalendar();renderAbsences();

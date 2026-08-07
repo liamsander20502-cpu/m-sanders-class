@@ -57,3 +57,102 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
 @media(max-width:720px){.topbar{align-items:flex-start}.top-actions{flex-direction:column}.home-hero,.calendar-banner{grid-template-columns:1fr;padding:20px}.home-scene,.calendar-scene{height:88px}.week-strip{grid-template-columns:1fr}.week-day{min-height:auto;display:grid;grid-template-columns:72px 1fr;gap:8px}.week-date{margin:0}.two-col,.edit-grid,.date-row{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.month-nav{justify-content:space-between}.month-nav h2{min-width:0;flex:1}.day{min-height:96px;padding:5px}.day-top{display:block;min-height:39px}.day-status{max-width:100%;padding:2px 4px;font-size:.53rem}.event{font-size:.6rem;padding:4px}}
 @media(max-width:500px){.quick-grid{grid-template-columns:1fr}.weekdays>div{font-size:.65rem}.day{min-height:82px}.event{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 @media print{.topbar,.tabs,.toolbar-actions,.calendar-key,.spsd-notice{display:none!important}.shell{width:100%;max-width:none;padding:0}.calendar-banner{padding:10px 0;border:0;background:none}.calendar-scene{display:none}.day{min-height:130px;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+
+/* ======================================================
+   Opening welcome animation
+   ====================================================== */
+.welcome-splash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.18),transparent 24%),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.12),transparent 28%),
+    linear-gradient(135deg,#274a89,#3f6fc0 58%,#6f8ed0);
+  color:#fff;
+  overflow:hidden;
+  animation:splashIn .42s ease both;
+}
+.welcome-splash::before,
+.welcome-splash::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+}
+.welcome-splash::before{width:360px;height:360px;left:-120px;bottom:-130px}
+.welcome-splash::after{width:260px;height:260px;right:-80px;top:-90px}
+.welcome-splash-inner{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:24px;
+}
+.splash-school{
+  font-size:.74rem;
+  font-weight:850;
+  letter-spacing:.14em;
+  opacity:0;
+  transform:translateY(8px);
+  animation:splashRise .55s .18s ease forwards;
+}
+.splash-icons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin:20px 0 14px;
+}
+.splash-icons span{
+  display:grid;
+  place-items:center;
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  background:rgba(255,255,255,.95);
+  box-shadow:0 14px 38px rgba(10,25,60,.2);
+  font-size:2rem;
+  opacity:0;
+  transform:translateY(18px) rotate(-5deg) scale(.88);
+  animation:splashPop .55s ease forwards;
+}
+.splash-icons span:nth-child(1){animation-delay:.33s}
+.splash-icons span:nth-child(2){animation-delay:.45s;transform:translateY(18px) rotate(4deg) scale(.88)}
+.splash-icons span:nth-child(3){animation-delay:.57s;transform:translateY(18px) rotate(-2deg) scale(.88)}
+.splash-title{
+  font-size:clamp(2rem,6vw,3.7rem);
+  font-weight:850;
+  letter-spacing:-.04em;
+  opacity:0;
+  transform:translateY(14px);
+  animation:splashRise .6s .65s ease forwards;
+}
+.splash-line{
+  width:0;
+  height:3px;
+  margin:16px auto 0;
+  border-radius:999px;
+  background:rgba(255,255,255,.85);
+  animation:splashLine .65s .82s ease forwards;
+}
+.welcome-splash.is-leaving{
+  animation:splashOut .75s cubic-bezier(.7,0,.2,1) forwards;
+}
+@keyframes splashIn{from{opacity:0}to{opacity:1}}
+@keyframes splashRise{to{opacity:1;transform:translateY(0)}}
+@keyframes splashPop{to{opacity:1;transform:translateY(0) rotate(0) scale(1)}}
+@keyframes splashLine{to{width:110px}}
+@keyframes splashOut{
+  to{opacity:0;transform:scale(1.025);visibility:hidden}
+}
+@media (prefers-reduced-motion: reduce){
+  .welcome-splash,.welcome-splash *{animation-duration:.01ms!important;animation-delay:0ms!important}
+}
+
+/* Small River Heights-specific polish */
+.brand-mark{
+  background:linear-gradient(145deg,#315dcc,#274a89);
+}
