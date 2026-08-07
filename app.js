@@ -97,7 +97,8 @@ function applyTheme(month,home=false){
   root.style.setProperty("--theme-soft",t.soft);
   root.style.setProperty("--theme-deep",t.deep);
   if(home){
-    $("homeKicker").textContent=t.kicker;$("homeThemeName").textContent=t.name;$("homeThemeBlurb").textContent=t.blurb;
+    const monthName = new Date(2026, month, 1).toLocaleDateString(state.language==="fr"?"fr-CA":"en-CA",{month:"long"});
+    $("homeThemeName").textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
     $("homeScene").innerHTML=t.icons.map(i=>`<span class="scene-icon">${i}</span>`).join("");
   } else {
     const monthName = new Date(2026, month, 1).toLocaleDateString(state.language==="fr"?"fr-CA":"en-CA",{month:"long"});
@@ -127,7 +128,7 @@ function showView(name){
 }
 
 function renderHome(){
-  const now=new Date(2026,7,7,12); // prototype anchored to current development date
+  const now=new Date(); now.setHours(12,0,0,0);
   applyTheme(now.getMonth(),true);
   $("reminderText").textContent=state.home.reminder;
 
@@ -146,8 +147,9 @@ function renderHome(){
   $("weekStrip").innerHTML=[0,1,2,3,4].map(i=>{
     const d=new Date(mon);d.setDate(mon.getDate()+i);const iso=toISO(d);
     const evs=all.filter(e=>e.date===iso).slice(0,3);
-    return `<div class="week-day ${iso===toISO(now)?"today":""}">
-      <div><div class="week-day-name">${d.toLocaleDateString("en-CA",{weekday:"short"})}</div><div class="week-date">${d.getDate()}</div></div>
+    const isPast = new Date(d.getFullYear(),d.getMonth(),d.getDate()) < new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    return `<div class="week-day ${iso===toISO(now)?"today":""} ${isPast?"past-week-day":""}">
+      <div><div class="week-day-name">${d.toLocaleDateString(state.language==="fr"?"fr-CA":"en-CA",{weekday:"short"})}</div><div class="week-date">${d.getDate()}</div></div>
       <div>${evs.length?evs.map(e=>`<span class="week-event">${e.icon||"•"} ${escapeHtml(e.short||e.name)}</span>`).join(""):`<span class="week-empty">Nothing special</span>`}</div>
     </div>`;
   }).join("");

@@ -219,3 +219,57 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
     filter: none;
   }
 }
+
+
+/* Homepage month header now matches the simple calendar month header */
+.simple-home-hero {
+  min-height: 118px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.simple-home-hero h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -.035em;
+}
+
+/* Completed days in This Week */
+.week-day.past-week-day {
+  position: relative;
+  opacity: .52;
+  filter: saturate(.65);
+}
+
+.week-day.past-week-day::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(65, 74, 88, .46);
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+
+.week-day.past-week-day .week-day-name,
+.week-day.past-week-day .week-date,
+.week-day.past-week-day .week-event,
+.week-day.past-week-day .week-empty {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Keep current day visibly highlighted even next to crossed-off days */
+.week-day.today {
+  opacity: 1;
+  filter: none;
+}
+
+@media (max-width:720px) {
+  .simple-home-hero {
+    min-height: 96px;
+  }
+}
