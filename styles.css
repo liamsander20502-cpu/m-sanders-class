@@ -391,3 +391,27 @@ dialog::backdrop { background: rgba(15,23,42,.4); }
   .calendar-wrap { border-radius: 0; }
   .day { min-height: 130px; }
 }
+
+/* Automatic monthly themes */
+.themed-calendar{position:relative;isolation:isolate;--month-accent:var(--brand);--month-soft:var(--brand-soft);--month-ink:var(--ink)}
+.themed-calendar:before{content:"";position:absolute;z-index:-2;inset:-12px;border-radius:22px;background:var(--month-bg,transparent);pointer-events:none}
+.themed-calendar .calendar-wrap{position:relative;z-index:1;border-color:var(--month-accent)}
+.themed-calendar .weekdays>div{background:var(--month-soft);color:var(--month-ink)}
+.theme-label{display:inline-flex;align-items:center;gap:7px;margin:0 0 10px;padding:6px 10px;border:1px solid var(--month-accent);border-radius:999px;background:var(--month-soft);color:var(--month-ink);font-size:.82rem;font-weight:750}
+.theme-decor{position:absolute;z-index:0;inset:18px 2px auto auto;font-size:clamp(1.5rem,4vw,2.5rem);letter-spacing:.12em;opacity:.88;pointer-events:none;user-select:none}
+.themed-calendar .month-nav h2{color:var(--month-ink)}
+.themed-calendar .primary{background:var(--month-accent);border-color:var(--month-accent)}
+.month-0{--month-accent:#3976a8;--month-soft:#e7f3fb;--month-ink:#244b68;--month-bg:linear-gradient(135deg,#f4faff,#edf7ff 55%,#fff)}
+.month-1{--month-accent:#b74f72;--month-soft:#fdebf1;--month-ink:#7d3650;--month-bg:linear-gradient(135deg,#fff6f9,#fdebf1 55%,#fff)}
+.month-2{--month-accent:#478a55;--month-soft:#eaf6e9;--month-ink:#315f3a;--month-bg:linear-gradient(135deg,#f5fbf3,#eaf6e9 55%,#fff)}
+.month-3{--month-accent:#4b78a8;--month-soft:#e9f2fb;--month-ink:#335878;--month-bg:linear-gradient(135deg,#f4f9ff,#e9f2fb 55%,#fff)}
+.month-4{--month-accent:#7d6ca8;--month-soft:#f0ecfa;--month-ink:#584a7c;--month-bg:linear-gradient(135deg,#faf7ff,#f0ecfa 55%,#fff)}
+.month-5{--month-accent:#c58a24;--month-soft:#fff4d9;--month-ink:#7c591b;--month-bg:linear-gradient(135deg,#fffaf0,#fff4d9 55%,#fff)}
+.month-6{--month-accent:#267f9b;--month-soft:#e3f6fa;--month-ink:#1e5f72;--month-bg:linear-gradient(135deg,#f0fbfd,#e3f6fa 55%,#fff)}
+.month-7{--month-accent:#d07b32;--month-soft:#fff0df;--month-ink:#8a5228;--month-bg:linear-gradient(135deg,#fff8ef,#fff0df 55%,#fff)}
+.month-8{--month-accent:#a95f32;--month-soft:#f8eadf;--month-ink:#704123;--month-bg:linear-gradient(135deg,#fff8f1,#f8eadf 55%,#fff)}
+.month-9{--month-accent:#7a3f91;--month-soft:#f0e6f5;--month-ink:#542c65;--month-bg:linear-gradient(135deg,#fbf5ff,#f0e6f5 55%,#fff7ed)}
+.month-10{--month-accent:#8a6335;--month-soft:#f4eadc;--month-ink:#624725;--month-bg:linear-gradient(135deg,#fbf7f0,#f4eadc 55%,#fff)}
+.month-11{--month-accent:#3f6f73;--month-soft:#e7f1f1;--month-ink:#2c5053;--month-bg:linear-gradient(135deg,#f4fafa,#e7f1f1 55%,#fff)}
+@media(max-width:620px){.theme-decor{position:static;margin:-4px 0 8px;text-align:right;font-size:1.45rem}}
+@media print{.theme-decor,.theme-label{display:none!important}.themed-calendar:before{display:none}}

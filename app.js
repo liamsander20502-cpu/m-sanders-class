@@ -53,7 +53,25 @@ function showView(name) {
   };
   $(map[name]).classList.remove("hidden");
 
-  document.querySelectorAll(".tab").forEach(tab => {
+  
+const monthThemes = [
+{name:"Snow Day Season",decor:"❄️ ⛄ ❄️"},{name:"Kindness & Hearts",decor:"💗 ✏️ 💗"},
+{name:"Signs of Spring",decor:"🌱 ☘️ 🌱"},{name:"Rainy Day Reading",decor:"🌧️ ☂️ 📚"},
+{name:"Growing & Blooming",decor:"🌷 🐝 🌼"},{name:"Hello, Summer!",decor:"☀️ 🍓 🕶️"},
+{name:"Summer Adventure",decor:"🏖️ ☀️ 🍉"},{name:"Back-to-School Buzz",decor:"✏️ 🎒 📚"},
+{name:"Apple & Autumn",decor:"🍎 ✏️ 🍂"},{name:"Halloween",decor:"🎃 👻 🦇"},
+{name:"Cozy Fall",decor:"🍁 🧣 🍂"},{name:"Winter Cheer",decor:"❄️ 🎁 ⛄"}];
+
+function applyMonthTheme(){
+ const view=$("calendarView"); if(!view)return;
+ for(let i=0;i<12;i++)view.classList.remove(`month-${i}`);
+ const month=state.cursor.getMonth(); view.classList.add(`month-${month}`);
+ $("themeDecor").textContent=monthThemes[month].decor;
+ $("themeLabel").textContent=`${monthThemes[month].decor.split(" ")[0]} ${monthThemes[month].name}`;
+}
+
+
+document.querySelectorAll(".tab").forEach(tab => {
     tab.classList.toggle("active", tab.dataset.view === name);
   });
 
@@ -63,6 +81,7 @@ function showView(name) {
 }
 
 function renderCalendar() {
+  applyMonthTheme();
   const y = state.cursor.getFullYear();
   const m = state.cursor.getMonth();
   $("monthTitle").textContent = state.cursor.toLocaleDateString(state.language === "fr" ? "fr-CA" : "en-CA", {
@@ -256,6 +275,24 @@ function escapeHtml(str) {
     "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
   })[c]);
 }
+
+
+const monthThemes = [
+{name:"Snow Day Season",decor:"❄️ ⛄ ❄️"},{name:"Kindness & Hearts",decor:"💗 ✏️ 💗"},
+{name:"Signs of Spring",decor:"🌱 ☘️ 🌱"},{name:"Rainy Day Reading",decor:"🌧️ ☂️ 📚"},
+{name:"Growing & Blooming",decor:"🌷 🐝 🌼"},{name:"Hello, Summer!",decor:"☀️ 🍓 🕶️"},
+{name:"Summer Adventure",decor:"🏖️ ☀️ 🍉"},{name:"Back-to-School Buzz",decor:"✏️ 🎒 📚"},
+{name:"Apple & Autumn",decor:"🍎 ✏️ 🍂"},{name:"Halloween",decor:"🎃 👻 🦇"},
+{name:"Cozy Fall",decor:"🍁 🧣 🍂"},{name:"Winter Cheer",decor:"❄️ 🎁 ⛄"}];
+
+function applyMonthTheme(){
+ const view=$("calendarView"); if(!view)return;
+ for(let i=0;i<12;i++)view.classList.remove(`month-${i}`);
+ const month=state.cursor.getMonth(); view.classList.add(`month-${month}`);
+ $("themeDecor").textContent=monthThemes[month].decor;
+ $("themeLabel").textContent=`${monthThemes[month].decor.split(" ")[0]} ${monthThemes[month].name}`;
+}
+
 
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => showView(tab.dataset.view));
