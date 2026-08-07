@@ -1,12 +1,4 @@
-# M. Sander's Class Parent Hub
+# Normal month header update
 
-Latest update:
-- Added clean, minimalist seasonal backgrounds for every month.
-- December and January include subtle snow.
-- February includes faint heart motifs.
-- March/May use soft spring vegetation and petals.
-- April uses light rain lines.
-- June/July use understated summer light/wave shapes.
-- August has a faint school-notebook grid.
-- September/November use warm leaf motifs.
-- October gets a restrained moon/web treatment.
+This version restores the compact/normal month header.
+The existing calendar markings and calendar-day appearance are left unchanged.

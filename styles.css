@@ -524,3 +524,38 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
 @media(max-width:720px){
   .seasonal-bg{opacity:.7}
 }
+
+
+/* ===== Normal month header =====
+   Restore the compact month heading while leaving the calendar itself unchanged.
+*/
+.calendar-banner.simple-month-banner {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 0 12px 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.calendar-banner.simple-month-banner .seasonal-bg {
+  display: none !important;
+}
+
+.calendar-banner.simple-month-banner h1,
+.calendar-banner.simple-month-banner h2,
+.calendar-banner.simple-month-banner .month-title,
+.calendar-banner.simple-month-banner [class*="month-title"] {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide decorative banner icons only; calendar content remains untouched. */
+.calendar-banner.simple-month-banner .month-decor,
+.calendar-banner.simple-month-banner .banner-decor,
+.calendar-banner.simple-month-banner .season-icons {
+  display: none !important;
+}
