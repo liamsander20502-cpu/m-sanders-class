@@ -559,3 +559,165 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
 .calendar-banner.simple-month-banner .season-icons {
   display: none !important;
 }
+
+
+/* ======================================================
+   Seasonal calendar page background (compact header retained)
+   ====================================================== */
+.seasonal-calendar-page {
+  position: relative;
+  isolation: isolate;
+  padding: 18px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.seasonal-calendar-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .95;
+}
+
+.seasonal-calendar-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: .55;
+}
+
+/* Jan */
+.month-font-0 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#f7fbff,#edf6fb);
+}
+.month-font-0 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(circle at 10% 14%, rgba(255,255,255,.95) 0 2px, transparent 2.4px),
+    radial-gradient(circle at 26% 48%, rgba(255,255,255,.82) 0 1.8px, transparent 2.2px),
+    radial-gradient(circle at 61% 18%, rgba(255,255,255,.9) 0 2px, transparent 2.4px),
+    radial-gradient(circle at 86% 38%, rgba(255,255,255,.82) 0 1.8px, transparent 2.2px);
+}
+
+/* Feb */
+.month-font-1 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fff9fb,#fff2f6);
+}
+.month-font-1 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 13% 20%, rgba(189,87,121,.08) 0 8px, transparent 8.5px),
+    radial-gradient(ellipse at 79% 72%, rgba(189,87,121,.07) 0 7px, transparent 7.5px);
+}
+
+/* Mar */
+.month-font-2 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#f8fcf5,#eef8eb);
+}
+.month-font-2 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 10% 88%, rgba(76,139,88,.08) 0 15px, transparent 15.5px),
+    radial-gradient(ellipse at 86% 92%, rgba(76,139,88,.06) 0 18px, transparent 18.5px);
+}
+
+/* Apr */
+.month-font-3 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#f7fbff,#eef6fb);
+}
+.month-font-3 .seasonal-calendar-page::after {
+  background:
+    linear-gradient(115deg, transparent 0 20%, rgba(82,126,167,.06) 20.5% 21%, transparent 21.5% 44%, rgba(82,126,167,.05) 44.5% 45%, transparent 45.5% 72%, rgba(82,126,167,.05) 72.5% 73%, transparent 73.5%);
+}
+
+/* May */
+.month-font-4 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fffafd,#f8f3fb);
+}
+.month-font-4 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 16% 20%, rgba(138,106,163,.07) 0 8px, transparent 8.5px),
+    radial-gradient(ellipse at 76% 74%, rgba(138,106,163,.06) 0 7px, transparent 7.5px);
+}
+
+/* Jun */
+.month-font-5 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fffdf5,#fff7e2);
+}
+.month-font-5 .seasonal-calendar-page::after {
+  background: radial-gradient(circle at 87% 12%, rgba(233,196,107,.13) 0 54px, transparent 55px);
+}
+
+/* Jul */
+.month-font-6 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#f5fcfd,#eaf8fb);
+}
+.month-font-6 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 18% 110%, rgba(44,129,151,.08) 0 130px, transparent 131px),
+    radial-gradient(ellipse at 77% 116%, rgba(44,129,151,.06) 0 160px, transparent 161px);
+}
+
+/* Aug */
+.month-font-7 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fffaf4,#fff5e8);
+}
+.month-font-7 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(circle at 10% 18%, rgba(208,121,50,.07) 0 5px, transparent 5.5px),
+    radial-gradient(circle at 89% 74%, rgba(49,93,204,.05) 0 6px, transparent 6.5px);
+}
+
+/* Sep */
+.month-font-8 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fffaf4,#f8f1e7);
+}
+.month-font-8 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 14% 18%, rgba(167,95,52,.07) 0 10px, transparent 10.5px),
+    radial-gradient(ellipse at 83% 78%, rgba(167,95,52,.06) 0 9px, transparent 9.5px);
+}
+
+/* Oct */
+.month-font-9 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fcf8ff,#f5eef9);
+}
+.month-font-9 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(224,152,66,.11) 0 38px, transparent 39px);
+}
+
+/* Nov */
+.month-font-10 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#fcf9f4,#f4ede3);
+}
+.month-font-10 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(ellipse at 12% 84%, rgba(141,101,56,.06) 0 16px, transparent 16.5px),
+    radial-gradient(ellipse at 84% 78%, rgba(141,101,56,.06) 0 14px, transparent 14.5px);
+}
+
+/* Dec */
+.month-font-11 .seasonal-calendar-page::before {
+  background: linear-gradient(135deg,#f7fbff,#edf6fb);
+}
+.month-font-11 .seasonal-calendar-page::after {
+  background:
+    radial-gradient(circle at 11% 16%, rgba(255,255,255,.95) 0 2px, transparent 2.4px),
+    radial-gradient(circle at 24% 56%, rgba(255,255,255,.82) 0 1.8px, transparent 2.2px),
+    radial-gradient(circle at 44% 18%, rgba(255,255,255,.9) 0 2px, transparent 2.4px),
+    radial-gradient(circle at 68% 62%, rgba(255,255,255,.82) 0 1.8px, transparent 2.2px),
+    radial-gradient(circle at 89% 22%, rgba(255,255,255,.9) 0 2px, transparent 2.4px);
+}
+
+/* Ensure compact header stays compact and calendar remains readable. */
+.seasonal-calendar-page .calendar-banner.simple-month-banner {
+  background: transparent !important;
+  margin-bottom: 10px !important;
+}
+.seasonal-calendar-page .calendar-wrap {
+  background: rgba(255,255,255,.96);
+}

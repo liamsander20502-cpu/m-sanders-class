@@ -19,9 +19,6 @@ const state = {
     }
   },
   events:[],
-  absences:[
-    {id:1,student:"Avery S.",start:"2026-09-22",end:"2026-09-23",note:"Family trip",status:"pending"}
-  ],
   extracted:[]
 };
 
@@ -134,14 +131,14 @@ function applyTheme(month,home=false){
 function renderRole(){
   document.querySelectorAll(".teacher-only").forEach(el=>el.classList.toggle("hidden",state.role!=="teacher"));
   document.querySelectorAll(".parent-only").forEach(el=>el.classList.toggle("hidden",state.role!=="parent"));
-  if(state.role==="parent"&&["absences","edit"].includes(state.view))showView("home");
-  if(state.role==="teacher"&&state.view==="submit")showView("home");
+  if(state.role==="parent"&&["edit"].includes(state.view))showView("home");
+  
 }
 
 function showView(name){
   state.view=name;
   document.querySelectorAll(".view").forEach(el=>el.classList.add("hidden"));
-  const map={home:"homeView",calendar:"calendarView",absences:"absencesView",submit:"submitView",edit:"editView"};
+  const map={home:"homeView",calendar:"calendarView",edit:"editView"};
   $(map[name]).classList.remove("hidden");
   
 function renderEditorEvents(){
@@ -281,11 +278,7 @@ function renderCalendar(){
 function openEventDialog(date=toISO(new Date())){$("eventDate").value=date;$("eventName").value="";$("eventCategory").value="school";$("eventIcon").value="📚";$("eventDialog").showModal()}
 function saveEvent(){const date=$("eventDate").value,name=$("eventName").value.trim();if(!date||!name)return;state.events.push({id:Date.now(),date,name,category:$("eventCategory").value,icon:$("eventIcon").value});saveSite();renderCalendar();renderHome()}
 
-function renderAbsences(){
-  $("absenceBadge").textContent=state.absences.filter(a=>a.status==="pending").length;
-  $("absenceList").innerHTML=state.absences.length?state.absences.map(a=>`<div class="absence-card"><div><strong>${escapeHtml(a.student)}</strong><div>${formatDate(a.start,{month:"short",day:"numeric",year:"numeric"})}${a.end!==a.start?` – ${formatDate(a.end,{month:"short",day:"numeric",year:"numeric"})}`:""}</div>${a.note?`<div class="small">${escapeHtml(a.note)}</div>`:""}</div><div><span class="status ${a.status==="ack"?"ack":""}">${a.status==="ack"?"Acknowledged":"Pending"}</span>${a.status!=="ack"?`<div><button class="secondary ack-btn" data-id="${a.id}">Acknowledge</button></div>`:""}</div></div>`).join(""):`<div class="empty-state">No planned absences submitted.</div>`;
-  document.querySelectorAll(".ack-btn").forEach(btn=>btn.addEventListener("click",()=>{const a=state.absences.find(x=>String(x.id)===btn.dataset.id);if(a)a.status="ack";renderAbsences()}));
-}
+
 function populateHomeEditor(){
   $("editReminder").value=state.home.reminder;
   $("editClassHeading").value=state.home.classHeading||"Welcome to Our Class";
@@ -308,7 +301,6 @@ $("nextMonth").addEventListener("click",()=>{state.cursor=new Date(state.cursor.
 $("addEventBtn").addEventListener("click",()=>openEventDialog());
 $("printBtn").addEventListener("click",()=>window.print());
 $("saveEventBtn").addEventListener("click",e=>{if(!$("eventDate").value||!$("eventName").value.trim()){e.preventDefault();return}saveEvent()});
-$("submitAbsenceBtn").addEventListener("click",()=>{const start=$("absenceStart").value;if(!start)return;state.absences.push({id:Date.now(),student:$("studentSelect").value,start,end:$("absenceEnd").value||start,note:$("absenceNote").value.trim(),status:"pending"});$("absenceStart").value="";$("absenceEnd").value="";$("absenceNote").value="";$("submitMessage").classList.remove("hidden");renderAbsences();setTimeout(()=>$("submitMessage").classList.add("hidden"),3000)});
 $("schoolSiteBtn").addEventListener("click",()=>window.open(state.home.links.school,"_blank"));
 $("spsdBtn").addEventListener("click",()=>window.open(state.home.links.spsd,"_blank"));
 
@@ -320,4 +312,4 @@ function runWelcomeSplash(){
   window.setTimeout(()=>splash.remove(), 3150);
 }
 
-loadSavedSite();runWelcomeSplash();renderRole();renderHome();renderCalendar();renderAbsences();
+loadSavedSite();runWelcomeSplash();renderRole();renderHome();renderCalendar();

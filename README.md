@@ -1,4 +1,8 @@
-# Normal month header update
+# M. Sander Parent Hub update
 
-This version restores the compact/normal month header.
-The existing calendar markings and calendar-day appearance are left unchanged.
+Changes:
+- Removed the absences feature completely.
+- Removed absence buttons, forms, counters, and teacher absence view.
+- Restored seasonal background styling on the Calendar page.
+- Kept the compact/normal month header.
+- Calendar remains clean and readable with subtle month-specific atmosphere.
