@@ -1,10 +1,8 @@
-# Calendar restored + countdown fixed
-
-This version starts from the last working full calendar.
+# M. Sander Parent Hub update
 
 Changes:
-- Restores the complete calendar grid.
-- Keeps the existing interactive hover effect.
-- Shows a real visible countdown badge inside the hovered date:
-  Today / Tomorrow / Yesterday / X days away / X days ago.
-- Does not modify or remove the calendar HTML structure.
+- Removed the absences feature completely.
+- Removed absence buttons, forms, counters, and teacher absence view.
+- Restored seasonal background styling on the Calendar page.
+- Kept the compact/normal month header.
+- Calendar remains clean and readable with subtle month-specific atmosphere.

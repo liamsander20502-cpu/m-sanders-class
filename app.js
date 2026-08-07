@@ -207,46 +207,6 @@ $("saveLinksBtn").addEventListener("click",()=>{
   saveSite();
 });
 
-
-
-function getDayDistanceLabel(iso){
-  const target = fromISO(iso);
-  target.setHours(0,0,0,0);
-
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
-  const diff = Math.round((target.getTime() - today.getTime()) / 86400000);
-
-  if(diff === 0) return "Today";
-  if(diff === 1) return "Tomorrow";
-  if(diff === -1) return "Yesterday";
-  if(diff > 1) return `${diff} days away`;
-  return `${Math.abs(diff)} days ago`;
-}
-
-function wireCalendarHover(){
-  document.querySelectorAll(".day").forEach(day=>{
-    const label = getDayDistanceLabel(day.dataset.date);
-    day.dataset.distance = label;
-    day.setAttribute("aria-label", `${day.dataset.date}: ${label}`);
-
-    day.addEventListener("mouseenter",()=>day.classList.add("is-hovered"));
-    day.addEventListener("mouseleave",()=>day.classList.remove("is-hovered"));
-    day.addEventListener("focusin",()=>day.classList.add("is-hovered"));
-    day.addEventListener("focusout",()=>day.classList.remove("is-hovered"));
-
-    day.addEventListener("click",(e)=>{
-      if(window.matchMedia("(hover: none)").matches){
-        e.stopPropagation();
-        const open = day.classList.contains("is-hovered");
-        document.querySelectorAll(".day.is-hovered").forEach(el=>el.classList.remove("is-hovered"));
-        if(!open) day.classList.add("is-hovered");
-      }
-    });
-  });
-}
-
 document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
   renderRole();
   if(name==="home")renderHome();
@@ -305,17 +265,13 @@ function renderCalendar(){
     const cellDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
     const isPast = cellDate < today;
 
-    const distanceLabel = getDayDistanceLabel(iso);
-
     cells.push(`<div class="day ${monthMatch?"":"muted"} ${primary?`official-${primary.spsdType}`:""} ${isPast?"past-day":""}" data-date="${iso}" ${primary?`title="${escapeHtml(primary.detail)}"`:""}>
       <div class="day-top"><div class="day-number">${d.getDate()}</div>${primary?`<span class="day-status">${escapeHtml(primary.short)}</span>`:""}</div>
       <div class="day-events">${dayEvents.map(ev=>`<button class="event ${ev.category}" data-event-id="${ev.id}" title="${escapeHtml(ev.name)}">${ev.icon} ${escapeHtml(ev.name)}</button>`).join("")}</div>
-      <div class="day-distance-label">${escapeHtml(distanceLabel)}</div>
     </div>`);
   }
   $("calendarGrid").innerHTML=cells.join("");
   $("spsdNotice").classList.toggle("hidden",!isSpsdSchoolYearVisible());
-  wireCalendarHover();
   if(state.role==="teacher")document.querySelectorAll(".day").forEach(day=>day.addEventListener("dblclick",()=>openEventDialog(day.dataset.date)));
 }
 
@@ -357,10 +313,3 @@ function runWelcomeSplash(){
 }
 
 loadSavedSite();runWelcomeSplash();renderRole();renderHome();renderCalendar();
-
-
-document.addEventListener("click",(e)=>{
-  if(!e.target.closest(".day")){
-    document.querySelectorAll(".day.is-hovered").forEach(el=>el.classList.remove("is-hovered"));
-  }
-});
