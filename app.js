@@ -5,6 +5,12 @@ const state = {
   cursor:new Date(2026,7,1),
   home:{
     reminder:"Please send indoor shoes, a filled water bottle, lunch kit, and backpack each day.",
+    classHeading:"Welcome to Our Class",
+    familyNote:"",
+    links:{
+      school:"https://www.spsd.sk.ca/riverheights",
+      spsd:"https://www.spsd.sk.ca/"
+    },
     learning:{
       french:"Getting comfortable with classroom French and daily routines",
       math:"Counting, comparing, and representing numbers",
@@ -77,6 +83,22 @@ const spsdCalendar2026_27=[
 ];
 
 const $=id=>document.getElementById(id);
+
+function loadSavedSite(){
+  try{
+    const saved=localStorage.getItem("msanderParentHub");
+    if(!saved)return;
+    const data=JSON.parse(saved);
+    if(data.home) state.home={...state.home,...data.home,learning:{...state.home.learning,...(data.home.learning||{})},links:{...state.home.links,...(data.home.links||{})}};
+    if(Array.isArray(data.events)) state.events=data.events;
+  }catch(err){console.warn("Could not load saved site data",err)}
+}
+function saveSite(){
+  localStorage.setItem("msanderParentHub",JSON.stringify({home:state.home,events:state.events}));
+  const status=$("editorStatus");
+  if(status){status.textContent="Saved on this device ✓";setTimeout(()=>status.textContent="Changes save on this device.",2200)}
+}
+
 const translations={en:{weekdays:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},fr:{weekdays:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"]}};
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
@@ -92,6 +114,8 @@ function isSpsdSchoolYearVisible(){const y=state.cursor.getFullYear(),m=state.cu
 
 function applyTheme(month,home=false){
   const t=monthThemes[month];
+  document.body.className=document.body.className.replace(/month-font-\d+/g,"").trim();
+  document.body.classList.add(`month-font-${month}`);
   const root=home?$("homeHero"):$("calendarView");
   root.style.setProperty("--theme-accent",t.accent);
   root.style.setProperty("--theme-soft",t.soft);
@@ -119,7 +143,74 @@ function showView(name){
   document.querySelectorAll(".view").forEach(el=>el.classList.add("hidden"));
   const map={home:"homeView",calendar:"calendarView",absences:"absencesView",submit:"submitView",edit:"editView"};
   $(map[name]).classList.remove("hidden");
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
+  
+function renderEditorEvents(){
+  const box=$("editorEventList");
+  if(!box)return;
+  const events=[...state.events].sort((a,b)=>a.date.localeCompare(b.date));
+  if(!events.length){
+    box.innerHTML='<div class="empty-state">No class events yet. Add one using the form.</div>';
+    return;
+  }
+  box.innerHTML=events.map(ev=>`
+    <div class="editor-event-row">
+      <div class="editor-event-date">${formatDate(ev.date,{month:"short",day:"numeric"})}</div>
+      <div class="editor-event-main"><strong>${ev.icon} ${escapeHtml(ev.name)}</strong><small>${escapeHtml(ev.category)}</small></div>
+      <button class="danger-text delete-editor-event" data-id="${ev.id}" type="button">Delete</button>
+    </div>`).join("");
+  document.querySelectorAll(".delete-editor-event").forEach(btn=>btn.addEventListener("click",()=>{
+    state.events=state.events.filter(ev=>String(ev.id)!==btn.dataset.id);
+    saveSite();renderEditorEvents();renderHome();renderCalendar();
+  }));
+}
+
+function showEditorPanel(name){
+  document.querySelectorAll(".editor-panel").forEach(p=>p.classList.add("hidden"));
+  document.querySelectorAll(".editor-tab").forEach(t=>t.classList.toggle("active",t.dataset.editorPanel===name));
+  const map={homepage:"editorHomepage",learning:"editorLearning",events:"editorEvents",links:"editorLinks"};
+  $(map[name]).classList.remove("hidden");
+  if(name==="events")renderEditorEvents();
+}
+
+document.querySelectorAll(".editor-tab").forEach(btn=>btn.addEventListener("click",()=>showEditorPanel(btn.dataset.editorPanel)));
+
+$("saveHomepageBtn").addEventListener("click",()=>{
+  state.home.reminder=$("editReminder").value.trim();
+  state.home.classHeading=$("editClassHeading").value.trim()||"Welcome to Our Class";
+  state.home.familyNote=$("editFamilyNote").value.trim();
+  saveSite();renderHome();
+});
+
+$("saveLearningBtn").addEventListener("click",()=>{
+  state.home.learning.french=$("editFrench").value.trim();
+  state.home.learning.math=$("editMath").value.trim();
+  state.home.learning.science=$("editScience").value.trim();
+  state.home.learning.focus=$("editFocus").value.trim();
+  saveSite();renderHome();
+});
+
+$("editorAddEventBtn").addEventListener("click",()=>{
+  const date=$("editorEventDate").value;
+  const name=$("editorEventName").value.trim();
+  if(!date||!name){$("editorStatus").textContent="Add a date and event name first.";return}
+  state.events.push({
+    id:Date.now(),
+    date,
+    name,
+    category:$("editorEventCategory").value,
+    icon:$("editorEventIcon").value
+  });
+  $("editorEventName").value="";
+  saveSite();renderEditorEvents();renderHome();renderCalendar();
+});
+
+$("saveLinksBtn").addEventListener("click",()=>{
+  state.home.links.school=$("editSchoolLink").value.trim();
+  state.home.links.spsd=$("editSpsdLink").value.trim();
+  saveSite();
+});
+
+document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
   renderRole();
   if(name==="home")renderHome();
   if(name==="calendar")renderCalendar();
@@ -131,6 +222,9 @@ function renderHome(){
   const now=new Date(); now.setHours(12,0,0,0);
   applyTheme(now.getMonth(),true);
   $("reminderText").textContent=state.home.reminder;
+  $("siteClassHeading").textContent=state.home.classHeading || "Welcome to Our Class";
+  $("familyNoteText").textContent=state.home.familyNote || "";
+  $("familyNoteText").classList.toggle("hidden",!state.home.familyNote);
 
   const learning=[
     ["🔤","French / Literacy",state.home.learning.french],
@@ -185,14 +279,25 @@ function renderCalendar(){
 }
 
 function openEventDialog(date=toISO(new Date())){$("eventDate").value=date;$("eventName").value="";$("eventCategory").value="school";$("eventIcon").value="📚";$("eventDialog").showModal()}
-function saveEvent(){const date=$("eventDate").value,name=$("eventName").value.trim();if(!date||!name)return;state.events.push({id:Date.now(),date,name,category:$("eventCategory").value,icon:$("eventIcon").value});renderCalendar();renderHome()}
+function saveEvent(){const date=$("eventDate").value,name=$("eventName").value.trim();if(!date||!name)return;state.events.push({id:Date.now(),date,name,category:$("eventCategory").value,icon:$("eventIcon").value});saveSite();renderCalendar();renderHome()}
 
 function renderAbsences(){
   $("absenceBadge").textContent=state.absences.filter(a=>a.status==="pending").length;
   $("absenceList").innerHTML=state.absences.length?state.absences.map(a=>`<div class="absence-card"><div><strong>${escapeHtml(a.student)}</strong><div>${formatDate(a.start,{month:"short",day:"numeric",year:"numeric"})}${a.end!==a.start?` – ${formatDate(a.end,{month:"short",day:"numeric",year:"numeric"})}`:""}</div>${a.note?`<div class="small">${escapeHtml(a.note)}</div>`:""}</div><div><span class="status ${a.status==="ack"?"ack":""}">${a.status==="ack"?"Acknowledged":"Pending"}</span>${a.status!=="ack"?`<div><button class="secondary ack-btn" data-id="${a.id}">Acknowledge</button></div>`:""}</div></div>`).join(""):`<div class="empty-state">No planned absences submitted.</div>`;
   document.querySelectorAll(".ack-btn").forEach(btn=>btn.addEventListener("click",()=>{const a=state.absences.find(x=>String(x.id)===btn.dataset.id);if(a)a.status="ack";renderAbsences()}));
 }
-function populateHomeEditor(){$("editReminder").value=state.home.reminder;$("editFrench").value=state.home.learning.french;$("editMath").value=state.home.learning.math;$("editScience").value=state.home.learning.science;$("editFocus").value=state.home.learning.focus}
+function populateHomeEditor(){
+  $("editReminder").value=state.home.reminder;
+  $("editClassHeading").value=state.home.classHeading||"Welcome to Our Class";
+  $("editFamilyNote").value=state.home.familyNote||"";
+  $("editFrench").value=state.home.learning.french;
+  $("editMath").value=state.home.learning.math;
+  $("editScience").value=state.home.learning.science;
+  $("editFocus").value=state.home.learning.focus;
+  $("editSchoolLink").value=state.home.links.school;
+  $("editSpsdLink").value=state.home.links.spsd;
+  renderEditorEvents();
+}
 
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.view)));
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.go)));
@@ -204,9 +309,8 @@ $("addEventBtn").addEventListener("click",()=>openEventDialog());
 $("printBtn").addEventListener("click",()=>window.print());
 $("saveEventBtn").addEventListener("click",e=>{if(!$("eventDate").value||!$("eventName").value.trim()){e.preventDefault();return}saveEvent()});
 $("submitAbsenceBtn").addEventListener("click",()=>{const start=$("absenceStart").value;if(!start)return;state.absences.push({id:Date.now(),student:$("studentSelect").value,start,end:$("absenceEnd").value||start,note:$("absenceNote").value.trim(),status:"pending"});$("absenceStart").value="";$("absenceEnd").value="";$("absenceNote").value="";$("submitMessage").classList.remove("hidden");renderAbsences();setTimeout(()=>$("submitMessage").classList.add("hidden"),3000)});
-$("saveHomeBtn").addEventListener("click",()=>{state.home.reminder=$("editReminder").value.trim();state.home.learning.french=$("editFrench").value.trim();state.home.learning.math=$("editMath").value.trim();state.home.learning.science=$("editScience").value.trim();state.home.learning.focus=$("editFocus").value.trim();renderHome();$("homeSaved").classList.remove("hidden");setTimeout(()=>$("homeSaved").classList.add("hidden"),2500)});
-$("schoolSiteBtn").addEventListener("click",()=>window.open("https://www.spsd.sk.ca/riverheights","_blank"));
-$("spsdBtn").addEventListener("click",()=>window.open("https://www.spsd.sk.ca/","_blank"));
+$("schoolSiteBtn").addEventListener("click",()=>window.open(state.home.links.school,"_blank"));
+$("spsdBtn").addEventListener("click",()=>window.open(state.home.links.spsd,"_blank"));
 
 
 function runWelcomeSplash(){
@@ -216,4 +320,4 @@ function runWelcomeSplash(){
   window.setTimeout(()=>splash.remove(), 3150);
 }
 
-runWelcomeSplash();renderRole();renderHome();renderCalendar();renderAbsences();
+loadSavedSite();runWelcomeSplash();renderRole();renderHome();renderCalendar();renderAbsences();

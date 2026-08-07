@@ -273,3 +273,67 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
     min-height: 96px;
   }
 }
+
+
+/* ======================================================
+   Monthly display typography
+   Uses reliable system font stacks — no external font files.
+   ====================================================== */
+.month-font-0 .simple-home-hero h2,
+.month-font-0 .simple-month-banner h2 {font-family:Georgia,"Times New Roman",serif;font-style:italic;letter-spacing:.01em}
+
+.month-font-1 .simple-home-hero h2,
+.month-font-1 .simple-month-banner h2 {font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-weight:700;letter-spacing:.01em}
+
+.month-font-2 .simple-home-hero h2,
+.month-font-2 .simple-month-banner h2 {font-family:"Trebuchet MS","Segoe UI",sans-serif;font-weight:600;letter-spacing:.02em}
+
+.month-font-3 .simple-home-hero h2,
+.month-font-3 .simple-month-banner h2 {font-family:Georgia,serif;font-style:italic;font-weight:600}
+
+.month-font-4 .simple-home-hero h2,
+.month-font-4 .simple-month-banner h2 {font-family:"Segoe Print","Bradley Hand",cursive;font-weight:700}
+
+.month-font-5 .simple-home-hero h2,
+.month-font-5 .simple-month-banner h2 {font-family:"Trebuchet MS","Segoe UI",sans-serif;font-weight:800;letter-spacing:.03em}
+
+.month-font-6 .simple-home-hero h2,
+.month-font-6 .simple-month-banner h2 {font-family:"Trebuchet MS","Arial Rounded MT Bold","Segoe UI",sans-serif;font-weight:800;letter-spacing:.025em}
+
+.month-font-7 .simple-home-hero h2,
+.month-font-7 .simple-month-banner h2 {font-family:"Segoe Print","Trebuchet MS",sans-serif;font-weight:750}
+
+.month-font-8 .simple-home-hero h2,
+.month-font-8 .simple-month-banner h2 {font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.015em}
+
+.month-font-9 .simple-home-hero h2,
+.month-font-9 .simple-month-banner h2 {font-family:"Arial Black","Trebuchet MS","Segoe UI",sans-serif;font-weight:900;letter-spacing:.045em;text-transform:uppercase}
+
+.month-font-10 .simple-home-hero h2,
+.month-font-10 .simple-month-banner h2 {font-family:Georgia,"Times New Roman",serif;font-weight:700}
+
+.month-font-11 .simple-home-hero h2,
+.month-font-11 .simple-month-banner h2 {font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:700;letter-spacing:.025em}
+
+/* Site editor */
+.editor-status{padding:7px 10px;border-radius:999px;background:#eef4ff;color:#315dcc;font-size:.78rem;font-weight:750}
+.editor-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}
+.editor-tab{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 12px;color:var(--ink);font-weight:700}
+.editor-tab.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.editor-panel{margin-bottom:16px}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.event-editor-grid{grid-template-columns:.8fr 1.2fr}
+.editor-event-list{display:grid;gap:7px}
+.editor-event-row{display:grid;grid-template-columns:70px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #edf0f4}
+.editor-event-row:last-child{border-bottom:0}
+.editor-event-date{font-size:.75rem;font-weight:800;color:var(--muted)}
+.editor-event-main{display:grid;gap:2px}
+.editor-event-main small{color:var(--muted);text-transform:capitalize}
+.danger-text{border:0;background:transparent;color:#b42318;font-weight:750;padding:6px}
+.editor-help{margin-top:16px;padding:12px 14px;border:1px solid #dbe3ef;border-radius:12px;background:#f7f9fc;color:#5d6778;font-size:.82rem;line-height:1.45}
+.family-note{margin-top:10px;padding-top:10px;border-top:1px solid #eadfc8;color:#6f6048;font-size:.88rem}
+
+@media(max-width:760px){
+  .editor-grid,.event-editor-grid{grid-template-columns:1fr}
+  .editor-event-row{grid-template-columns:62px minmax(0,1fr) auto}
+}

@@ -26,7 +26,7 @@
       <div class="brand-mark">✦</div>
       <div>
         <div class="eyebrow">CLASSE DE M. SANDER • ÉCOLE RIVER HEIGHTS</div>
-        <h1>Welcome to Our Class</h1>
+        <h1 id="siteClassHeading">Welcome to Our Class</h1>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
       <button class="tab" data-view="calendar">Calendar</button>
       <button class="tab teacher-only" data-view="absences">Absences <span id="absenceBadge" class="badge">0</span></button>
       <button class="tab parent-only hidden" data-view="submit">Report Absence</button>
-      <button class="tab teacher-only" data-view="edit">Edit Home</button>
+      <button class="tab teacher-only" data-view="edit">Site Editor</button>
     </nav>
 
     <section id="homeView" class="view">
@@ -72,7 +72,7 @@
           <div class="section-eyebrow">DON'T FORGET</div>
           <div class="reminder-icon">📌</div>
           <h2>Important Reminder</h2>
-          <p id="reminderText"></p>
+          <p id="reminderText"></p><p id="familyNoteText" class="family-note hidden"></p>
         </section>
 
         <section class="home-card">
@@ -190,31 +190,115 @@
     <section id="editView" class="view hidden teacher-only">
       <div class="section-head">
         <div>
-          <div class="section-eyebrow">TEACHER TOOL</div>
-          <h2>Edit Parent Homepage</h2>
-          <p>Update the information families see on the homepage.</p>
+          <div class="section-eyebrow">TEACHER CONTROL CENTRE</div>
+          <h2>Site Editor</h2>
+          <p>Change the information families see without touching the code.</p>
         </div>
+        <div class="editor-status" id="editorStatus">Changes save on this device.</div>
       </div>
 
-      <div class="edit-grid">
-        <div class="panel">
-          <h3>Important Reminder</h3>
-          <label class="field">
-            <span>Reminder</span>
-            <textarea id="editReminder" rows="5"></textarea>
-          </label>
-        </div>
+      <div class="editor-tabs" role="tablist" aria-label="Site editor sections">
+        <button class="editor-tab active" data-editor-panel="homepage">Homepage</button>
+        <button class="editor-tab" data-editor-panel="learning">Learning</button>
+        <button class="editor-tab" data-editor-panel="events">Calendar Events</button>
+        <button class="editor-tab" data-editor-panel="links">Links</button>
+      </div>
 
+      <div id="editorHomepage" class="editor-panel">
+        <div class="editor-grid">
+          <div class="panel">
+            <h3>Important Reminder</h3>
+            <p class="small">This appears prominently on the parent homepage.</p>
+            <label class="field">
+              <span>Reminder</span>
+              <textarea id="editReminder" rows="6"></textarea>
+            </label>
+          </div>
+          <div class="panel">
+            <h3>Homepage Details</h3>
+            <label class="field">
+              <span>Class heading</span>
+              <input id="editClassHeading" type="text" value="Welcome to Our Class">
+            </label>
+            <label class="field">
+              <span>Quick note for families</span>
+              <textarea id="editFamilyNote" rows="4" placeholder="Optional short message"></textarea>
+            </label>
+          </div>
+        </div>
+        <button id="saveHomepageBtn" class="primary">Save homepage</button>
+      </div>
+
+      <div id="editorLearning" class="editor-panel hidden">
         <div class="panel">
           <h3>We're Learning</h3>
-          <label class="field"><span>French / Literacy</span><input id="editFrench" type="text"></label>
-          <label class="field"><span>Math</span><input id="editMath" type="text"></label>
-          <label class="field"><span>Science / Inquiry</span><input id="editScience" type="text"></label>
-          <label class="field"><span>Class focus</span><input id="editFocus" type="text"></label>
+          <p class="small">Keep these short. They update the parent homepage.</p>
+          <div class="editor-grid">
+            <label class="field"><span>French / Literacy</span><input id="editFrench" type="text"></label>
+            <label class="field"><span>Math</span><input id="editMath" type="text"></label>
+            <label class="field"><span>Science / Inquiry</span><input id="editScience" type="text"></label>
+            <label class="field"><span>Class focus</span><input id="editFocus" type="text"></label>
+          </div>
+          <button id="saveLearningBtn" class="primary">Save learning</button>
         </div>
       </div>
-      <button id="saveHomeBtn" class="primary">Save homepage changes</button>
-      <span id="homeSaved" class="save-note hidden">Saved for this session.</span>
+
+      <div id="editorEvents" class="editor-panel hidden">
+        <div class="editor-grid event-editor-grid">
+          <div class="panel">
+            <h3>Add Calendar Event</h3>
+            <label class="field"><span>Date</span><input id="editorEventDate" type="date"></label>
+            <label class="field"><span>Event name</span><input id="editorEventName" type="text" placeholder="Library books due"></label>
+            <label class="field">
+              <span>Type</span>
+              <select id="editorEventCategory">
+                <option value="school">Class event</option>
+                <option value="special">Special day</option>
+                <option value="recurring">Recurring</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Icon</span>
+              <select id="editorEventIcon">
+                <option value="📚">📚 Book</option>
+                <option value="✏️">✏️ Pencil</option>
+                <option value="🚌">🚌 Trip</option>
+                <option value="📷">📷 Photos</option>
+                <option value="🎨">🎨 Art</option>
+                <option value="🎵">🎵 Music</option>
+                <option value="⭐">⭐ Special</option>
+                <option value="📌">📌 Reminder</option>
+              </select>
+            </label>
+            <button id="editorAddEventBtn" class="primary wide">Add event</button>
+          </div>
+
+          <div class="panel">
+            <div class="card-heading">
+              <div>
+                <h3>My Events</h3>
+                <p class="small">Official SPSD dates stay separate and cannot be accidentally deleted.</p>
+              </div>
+            </div>
+            <div id="editorEventList" class="editor-event-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="editorLinks" class="editor-panel hidden">
+        <div class="panel">
+          <h3>Parent Links</h3>
+          <div class="editor-grid">
+            <label class="field"><span>School website</span><input id="editSchoolLink" type="url"></label>
+            <label class="field"><span>SPSD website</span><input id="editSpsdLink" type="url"></label>
+          </div>
+          <button id="saveLinksBtn" class="primary">Save links</button>
+        </div>
+      </div>
+
+      <div class="editor-help">
+        <strong>For now:</strong> changes made here stay saved in this browser. A future database upgrade will make the same editor publish instantly for every parent.
+      </div>
     </section>
   </main>
 
