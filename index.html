@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom Calendar Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">Classroom Portal</div>
+      <h1>Monthly Calendar</h1>
+    </div>
+    <div class="top-actions">
+      <button id="langBtn" class="ghost">FR</button>
+      <select id="roleSelect" aria-label="Demo role">
+        <option value="teacher">Teacher / Admin</option>
+        <option value="parent">Parent</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="shell">
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-view="calendar">Calendar</button>
+      <button class="tab teacher-only" data-view="import">AI Import</button>
+      <button class="tab teacher-only" data-view="absences">Absences <span id="absenceBadge" class="badge">0</span></button>
+      <button class="tab parent-only hidden" data-view="submit">Report Absence</button>
+    </nav>
+
+    <section id="calendarView" class="view">
+      <div class="toolbar">
+        <div class="month-nav">
+          <button id="prevMonth" class="icon-btn" aria-label="Previous month">‹</button>
+          <h2 id="monthTitle"></h2>
+          <button id="nextMonth" class="icon-btn" aria-label="Next month">›</button>
+        </div>
+        <div class="toolbar-actions teacher-only">
+          <button id="addEventBtn" class="primary">+ Add event</button>
+          <button id="printBtn" class="secondary">Print</button>
+        </div>
+      </div>
+
+      <div class="legend">
+        <span><i class="dot school"></i> School event</span>
+        <span><i class="dot special"></i> Special day</span>
+        <span><i class="dot recurring"></i> Recurring</span>
+      </div>
+
+      <div class="calendar-wrap">
+        <div class="weekdays" id="weekdays"></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+
+      <p class="privacy-note parent-only hidden">
+        Planned absences are private. Other families cannot see them on this calendar.
+      </p>
+    </section>
+
+    <section id="importView" class="view hidden teacher-only">
+      <div class="section-head">
+        <div>
+          <h2>AI Event Import</h2>
+          <p>Paste text or add a photo of a school calendar, newsletter, whiteboard, or schedule. Review everything before publishing.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>1. Add source</h3>
+          <label class="field">
+            <span>Paste text</span>
+            <textarea id="importText" rows="10" placeholder="Sept. 8 – School photos&#10;Sept. 14 – Library&#10;Sept. 21 – Terry Fox Run&#10;Sept. 28 – PD Day – No classes"></textarea>
+          </label>
+          <label class="field">
+            <span>Upload image</span>
+            <input id="imageInput" type="file" accept="image/*" />
+          </label>
+          <div id="imagePreview" class="image-preview empty">No image selected</div>
+          <button id="extractBtn" class="primary wide">Extract events</button>
+          <p class="small">Prototype note: pasted text is parsed locally. Photo reading is represented in the interface but requires a vision API in the production version.</p>
+        </div>
+
+        <div class="panel">
+          <h3>2. Review extracted events</h3>
+          <div id="reviewList" class="review-list">
+            <div class="empty-state">Extracted events will appear here.</div>
+          </div>
+          <button id="publishBtn" class="primary wide" disabled>Publish approved events</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="absencesView" class="view hidden teacher-only">
+      <div class="section-head">
+        <div>
+          <h2>Planned Absences</h2>
+          <p>Private submissions from parents. These never appear on the public classroom calendar.</p>
+        </div>
+      </div>
+      <div id="absenceList" class="stack"></div>
+    </section>
+
+    <section id="submitView" class="view hidden parent-only">
+      <div class="section-head">
+        <div>
+          <h2>Report a Planned Absence</h2>
+          <p>This form is private and visible only to the teacher/admin account.</p>
+        </div>
+      </div>
+
+      <div class="panel form-panel">
+        <label class="field">
+          <span>Student</span>
+          <select id="studentSelect">
+            <option>Avery S.</option>
+            <option>Jordan S.</option>
+          </select>
+        </label>
+        <div class="date-row">
+          <label class="field">
+            <span>First day away</span>
+            <input id="absenceStart" type="date" />
+          </label>
+          <label class="field">
+            <span>Returning</span>
+            <input id="absenceEnd" type="date" />
+          </label>
+        </div>
+        <label class="field">
+          <span>Optional note</span>
+          <textarea id="absenceNote" rows="4" placeholder="Family trip, appointment, etc."></textarea>
+        </label>
+        <button id="submitAbsenceBtn" class="primary wide">Submit planned absence</button>
+        <div id="submitMessage" class="success hidden">Your planned absence was submitted privately.</div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="eventDialog">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-head">
+        <h3 id="dialogTitle">Add event</h3>
+        <button value="cancel" class="icon-btn" aria-label="Close">×</button>
+      </div>
+
+      <label class="field">
+        <span>Date</span>
+        <input id="eventDate" type="date" required />
+      </label>
+      <label class="field">
+        <span>Event name</span>
+        <input id="eventName" type="text" placeholder="Library" required />
+      </label>
+      <label class="field">
+        <span>Category</span>
+        <select id="eventCategory">
+          <option value="school">School event</option>
+          <option value="special">Special day</option>
+          <option value="recurring">Recurring</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Icon</span>
+        <select id="eventIcon">
+          <option value="📚">📚 Book</option>
+          <option value="🏃">🏃 Running</option>
+          <option value="🚌">🚌 Bus</option>
+          <option value="📷">📷 Camera</option>
+          <option value="🏠">🏠 No school</option>
+          <option value="🎨">🎨 Art</option>
+          <option value="🎵">🎵 Music</option>
+          <option value="⭐">⭐ Special</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button value="cancel" class="secondary">Cancel</button>
+        <button id="saveEventBtn" value="default" class="primary">Save event</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
