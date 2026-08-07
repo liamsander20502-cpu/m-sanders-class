@@ -139,65 +139,52 @@ function applyMonthTheme() {
 
 
 const spsdCalendar2026_27 = [
-  // Staff planning / operations before students return
-  {date:"2026-08-27", name:"PD / Planning / Operations", icon:"🗂️", spsdType:"noschool"},
-  {date:"2026-08-28", name:"PD / Planning / Operations", icon:"🗂️", spsdType:"noschool"},
-  {date:"2026-08-31", name:"PD / Planning / Operations", icon:"🗂️", spsdType:"noschool"},
-  {date:"2026-09-01", name:"PD / Planning / Operations", icon:"🗂️", spsdType:"noschool"},
+  {date:"2026-09-02", short:"First Day", detail:"First day of school — elementary students attend in the morning", spsdType:"milestone"},
+  {date:"2026-09-07", short:"No School", detail:"Labour Day — no school", spsdType:"noschool"},
+  {date:"2026-09-30", short:"No School", detail:"National Day for Truth and Reconciliation — no school", spsdType:"noschool"},
 
-  // September
-  {date:"2026-09-02", name:"First Day — Elementary AM Only", icon:"🎒", spsdType:"milestone"},
-  {date:"2026-09-07", name:"Labour Day — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2026-09-30", name:"Truth & Reconciliation — No School", icon:"🏠", spsdType:"holiday"},
+  {date:"2026-10-09", short:"No School", detail:"Professional development day — no school for students", spsdType:"noschool"},
+  {date:"2026-10-12", short:"No School", detail:"Thanksgiving — no school", spsdType:"noschool"},
+  {date:"2026-10-22", short:"Conferences", detail:"Three-way conferences — no school in the afternoon", spsdType:"conference"},
+  {date:"2026-10-23", short:"Conferences", detail:"Three-way conferences — no school", spsdType:"conference"},
 
-  // October
-  {date:"2026-10-09", name:"PD Day — No School for Students", icon:"🗂️", spsdType:"noschool"},
-  {date:"2026-10-12", name:"Thanksgiving — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2026-10-22", name:"3-Way Conferences — No School PM", icon:"💬", spsdType:"conference"},
-  {date:"2026-10-23", name:"3-Way Conferences — No School", icon:"💬", spsdType:"conference"},
+  {date:"2026-11-11", short:"No School", detail:"Remembrance Day — no school", spsdType:"noschool"},
+  {date:"2026-11-27", short:"No School", detail:"Professional development / planning day — no school for students", spsdType:"noschool"},
 
-  // November
-  {date:"2026-11-11", name:"Remembrance Day — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2026-11-27", name:"PD / Planning — No School", icon:"🗂️", spsdType:"noschool"},
+  {date:"2026-12-21", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-22", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-23", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-24", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-25", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-28", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-29", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-30", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2026-12-31", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2027-01-01", short:"Winter Break", detail:"Winter break", spsdType:"break"},
+  {date:"2027-01-04", short:"Classes Resume", detail:"Classes resume after winter break", spsdType:"milestone"},
+  {date:"2027-01-22", short:"No School", detail:"Professional development / planning day — no school for students", spsdType:"noschool"},
 
-  // Winter break
-  {date:"2026-12-21", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-22", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-23", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-24", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-25", name:"Christmas Day", icon:"❄️", spsdType:"holiday"},
-  {date:"2026-12-28", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-29", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-30", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2026-12-31", name:"Winter Break", icon:"❄️", spsdType:"break"},
-  {date:"2027-01-01", name:"Winter Break / New Year's Day", icon:"❄️", spsdType:"holiday"},
-  {date:"2027-01-04", name:"Classes Resume", icon:"🎒", spsdType:"milestone"},
-  {date:"2027-01-22", name:"PD / Planning — No School", icon:"🗂️", spsdType:"noschool"},
+  {date:"2027-02-05", short:"Report Cards", detail:"Elementary report cards available", spsdType:"conference"},
+  {date:"2027-02-15", short:"No School", detail:"Family Day — no school", spsdType:"noschool"},
+  {date:"2027-02-16", short:"Feb. Break", detail:"February break", spsdType:"break"},
+  {date:"2027-02-17", short:"Feb. Break", detail:"February break", spsdType:"break"},
+  {date:"2027-02-18", short:"Feb. Break", detail:"February break", spsdType:"break"},
+  {date:"2027-02-19", short:"Feb. Break", detail:"February break", spsdType:"break"},
 
-  // February
-  {date:"2027-02-05", name:"Report Cards Available", icon:"📄", spsdType:"conference"},
-  {date:"2027-02-15", name:"Family Day — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2027-02-16", name:"February Break", icon:"❄️", spsdType:"break"},
-  {date:"2027-02-17", name:"February Break", icon:"❄️", spsdType:"break"},
-  {date:"2027-02-18", name:"February Break", icon:"❄️", spsdType:"break"},
-  {date:"2027-02-19", name:"February Break", icon:"❄️", spsdType:"break"},
+  {date:"2027-03-18", short:"Conferences", detail:"Three-way conferences — no school in the afternoon", spsdType:"conference"},
+  {date:"2027-03-19", short:"Conferences", detail:"Three-way conferences — no school", spsdType:"conference"},
+  {date:"2027-03-26", short:"No School", detail:"Good Friday — no school", spsdType:"noschool"},
+  {date:"2027-03-29", short:"Spring Break", detail:"Spring break", spsdType:"break"},
+  {date:"2027-03-30", short:"Spring Break", detail:"Spring break", spsdType:"break"},
+  {date:"2027-03-31", short:"Spring Break", detail:"Spring break", spsdType:"break"},
+  {date:"2027-04-01", short:"Spring Break", detail:"Spring break", spsdType:"break"},
+  {date:"2027-04-02", short:"Spring Break", detail:"Spring break", spsdType:"break"},
 
-  // March / April
-  {date:"2027-03-18", name:"3-Way Conferences — No School PM", icon:"💬", spsdType:"conference"},
-  {date:"2027-03-19", name:"3-Way Conferences — No School", icon:"💬", spsdType:"conference"},
-  {date:"2027-03-26", name:"Good Friday — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2027-03-29", name:"Spring Break", icon:"🌷", spsdType:"break"},
-  {date:"2027-03-30", name:"Spring Break", icon:"🌷", spsdType:"break"},
-  {date:"2027-03-31", name:"Spring Break", icon:"🌷", spsdType:"break"},
-  {date:"2027-04-01", name:"Spring Break", icon:"🌷", spsdType:"break"},
-  {date:"2027-04-02", name:"Spring Break", icon:"🌷", spsdType:"break"},
+  {date:"2027-05-21", short:"No School", detail:"Professional development / planning day — no school for students", spsdType:"noschool"},
+  {date:"2027-05-24", short:"No School", detail:"Victoria Day — no school", spsdType:"noschool"},
 
-  // May / June
-  {date:"2027-05-21", name:"PD / Planning — No School", icon:"🗂️", spsdType:"noschool"},
-  {date:"2027-05-24", name:"Victoria Day — No School", icon:"🏠", spsdType:"holiday"},
-  {date:"2027-06-14", name:"PD / Planning — No School", icon:"🗂️", spsdType:"noschool"},
-  {date:"2027-06-29", name:"Last Day — K–8 Students", icon:"🎉", spsdType:"milestone"},
-  {date:"2027-06-30", name:"Last Day — School Staff", icon:"✅", spsdType:"milestone"}
+  {date:"2027-06-14", short:"No School", detail:"Professional development / planning day — no school for students", spsdType:"noschool"},
+  {date:"2027-06-29", short:"Last Day", detail:"Last day of school for Kindergarten to Grade 8 students", spsdType:"milestone"}
 ];
 
 function getSpsdEventsForDate(date) {
@@ -242,17 +229,20 @@ function renderCalendar() {
     const dayEvents = state.events.filter(ev => ev.date === iso);
     const spsdEvents = getSpsdEventsForDate(iso);
 
+    const primarySpsd = spsdEvents[0];
+
     cells.push(`
-      <div class="day ${monthMatch ? "" : "muted"} ${spsdEvents.length ? "spsd-day" : ""}" data-date="${iso}">
-        <div class="day-number">${d.getDate()}${spsdEvents.length ? '<span class="spsd-tag">SPSD</span>' : ''}</div>
-        ${spsdEvents.map(ev => `
-          <div class="event spsd spsd-${ev.spsdType}" title="${escapeHtml(ev.name)}">
-            ${ev.icon} ${escapeHtml(ev.name)}
-          </div>`).join("")}
-        ${dayEvents.map(ev => `
-          <button class="event ${ev.category}" data-event-id="${ev.id}" title="${escapeHtml(ev.name)}">
-            ${ev.icon} ${escapeHtml(ev.name)}
-          </button>`).join("")}
+      <div class="day ${monthMatch ? "" : "muted"} ${primarySpsd ? `official-day official-${primarySpsd.spsdType}` : ""}" data-date="${iso}" ${primarySpsd ? `title="${escapeHtml(primarySpsd.detail)}"` : ""}>
+        <div class="day-top">
+          <div class="day-number">${d.getDate()}</div>
+          ${primarySpsd ? `<span class="day-status">${escapeHtml(primarySpsd.short)}</span>` : ""}
+        </div>
+        <div class="day-events">
+          ${dayEvents.map(ev => `
+            <button class="event ${ev.category}" data-event-id="${ev.id}" title="${escapeHtml(ev.name)}">
+              ${ev.icon} ${escapeHtml(ev.name)}
+            </button>`).join("")}
+        </div>
       </div>
     `);
   }

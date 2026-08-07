@@ -661,3 +661,177 @@ dialog::backdrop { background: rgba(15,23,42,.4); }
 @media print {
   .spsd-notice { display:none !important; }
 }
+
+
+/* ======================================================
+   Parent-first calendar redesign
+   Inspired by the clarity of the SPSD year-at-a-glance.
+   ====================================================== */
+.calendar-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 8px 0 12px;
+  color: #586174;
+  font-size: .8rem;
+  font-weight: 650;
+}
+
+.key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.key-swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.key-noschool { background:#f4b3b0; }
+.key-break { background:#a9dcee; }
+.key-conference { background:#a9dfb8; }
+.key-milestone { background:#d9b4ea; }
+.key-class { background:#dfe7f7; }
+
+.spsd-notice {
+  margin: 0 0 12px;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: #f5f7fa;
+  color: #667085;
+  font-size: .78rem;
+}
+
+.calendar-wrap {
+  border: 1px solid #cfd6df;
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+
+.weekdays > div {
+  padding: 9px 4px;
+  background: #333a44 !important;
+  color: white !important;
+  border-right-color: rgba(255,255,255,.14);
+  font-size: .78rem;
+  letter-spacing: .02em;
+}
+
+.day {
+  position: relative;
+  min-height: 112px;
+  padding: 7px 7px 8px;
+  background: #fff;
+  transition: background .12s ease;
+}
+
+.day.muted {
+  background: #f8f9fb;
+  color: #a0a7b3;
+}
+
+.day-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  min-height: 24px;
+}
+
+.day-number {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  margin: 0;
+  border-radius: 6px;
+  color: #202939;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.muted .day-number { color:#98a2b3; }
+
+.day-status {
+  max-width: calc(100% - 29px);
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: rgba(255,255,255,.78);
+  color: #273142;
+  font-size: .61rem;
+  font-weight: 850;
+  line-height: 1.08;
+  text-align: right;
+  letter-spacing: .005em;
+}
+
+.day-events {
+  display: grid;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.event {
+  margin: 0;
+  padding: 5px 6px;
+  border-left-width: 3px;
+  background: #f4f6fa;
+  font-size: .68rem;
+  font-weight: 650;
+}
+
+/* Parent-relevant official SPSD days are communicated by the cell itself. */
+.day.official-day {
+  border-top-color: rgba(0,0,0,.07);
+}
+
+.day.official-noschool { background:#fde6e4; }
+.day.official-break { background:#e5f5fb; }
+.day.official-conference { background:#e6f6eb; }
+.day.official-milestone { background:#f2e8f8; }
+
+.day.official-noschool .day-number { background:#d95c57; color:white; }
+.day.official-break .day-number { background:#4d9fbd; color:white; }
+.day.official-conference .day-number { background:#4b9b63; color:white; }
+.day.official-milestone .day-number { background:#8b5ca3; color:white; }
+
+.day.official-noschool .day-status { color:#8c2e2a; }
+.day.official-break .day-status { color:#28637a; }
+.day.official-conference .day-status { color:#2f6d42; }
+.day.official-milestone .day-status { color:#644276; }
+
+/* Kill old SPSD chip treatments from earlier versions. */
+.event.spsd,
+.spsd-tag {
+  display:none !important;
+}
+
+@media (max-width: 760px) {
+  .day { min-height: 92px; padding:5px; }
+  .day-status {
+    max-width: 100%;
+    padding: 2px 4px;
+    font-size: .53rem;
+  }
+  .day-top {
+    display:block;
+    min-height: 39px;
+  }
+  .day-number {
+    margin-bottom: 2px;
+  }
+  .event { font-size:.6rem; padding:4px; }
+}
+
+@media print {
+  .calendar-key, .spsd-notice { display:none !important; }
+  .day {
+    min-height: 128px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
