@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Classroom Calendar Portal</title>
+  <title>Classroom Parent Hub</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <div class="eyebrow">Classroom Portal</div>
-      <h1>Monthly Calendar</h1>
+    <div class="brand">
+      <div class="brand-mark">✦</div>
+      <div>
+        <div class="eyebrow">CLASSROOM PARENT HUB</div>
+        <h1>Welcome to Our Class</h1>
+      </div>
     </div>
+
     <div class="top-actions">
       <button id="langBtn" class="ghost">FR</button>
       <select id="roleSelect" aria-label="Demo role">
@@ -23,21 +27,82 @@
 
   <main class="shell">
     <nav class="tabs" aria-label="Main navigation">
-      <button class="tab active" data-view="calendar">Calendar</button>
+      <button class="tab active" data-view="home">Home</button>
+      <button class="tab" data-view="calendar">Calendar</button>
       <button class="tab teacher-only" data-view="import">AI Import</button>
       <button class="tab teacher-only" data-view="absences">Absences <span id="absenceBadge" class="badge">0</span></button>
       <button class="tab parent-only hidden" data-view="submit">Report Absence</button>
+      <button class="tab teacher-only" data-view="edit">Edit Home</button>
     </nav>
 
-    <section id="calendarView" class="view themed-calendar">
-      <div class="month-hero" id="monthHero">
-        <div class="month-hero-copy">
-          <div class="month-kicker" id="themeKicker">MONTHLY THEME</div>
-          <h2 id="themeName">Back-to-School Buzz</h2>
-          <p id="themeBlurb">Fresh pencils, new routines, and a bright start to the school year.</p>
+    <section id="homeView" class="view">
+      <div id="homeHero" class="home-hero">
+        <div>
+          <div id="homeKicker" class="home-kicker">AUGUST • BACK TO SCHOOL</div>
+          <h2 id="homeThemeName">Back-to-School Buzz</h2>
+          <p id="homeThemeBlurb">Fresh pencils, new routines, backpacks, books, and a bright new start.</p>
         </div>
-        <div class="month-scene" id="themeScene" aria-hidden="true"></div>
+        <div id="homeScene" class="home-scene" aria-hidden="true"></div>
       </div>
+
+      <div class="home-grid">
+        <section class="home-card this-week-card">
+          <div class="card-heading">
+            <div>
+              <div class="section-eyebrow">AT A GLANCE</div>
+              <h2>This Week</h2>
+            </div>
+            <button class="text-button" data-go="calendar">Full calendar →</button>
+          </div>
+          <div id="weekStrip" class="week-strip"></div>
+        </section>
+
+        <section class="home-card reminder-card">
+          <div class="section-eyebrow">DON'T FORGET</div>
+          <div class="reminder-icon">📌</div>
+          <h2>Important Reminder</h2>
+          <p id="reminderText"></p>
+        </section>
+
+        <section class="home-card">
+          <div class="card-heading">
+            <div>
+              <div class="section-eyebrow">NEXT UP</div>
+              <h2>Coming Up</h2>
+            </div>
+          </div>
+          <div id="comingUpList" class="coming-up-list"></div>
+        </section>
+
+        <section class="home-card learning-card">
+          <div class="section-eyebrow">IN OUR CLASSROOM</div>
+          <h2>We're Learning</h2>
+          <div id="learningGrid" class="learning-grid"></div>
+        </section>
+      </div>
+
+      <section class="quick-section">
+        <div class="section-eyebrow">QUICK ACTIONS</div>
+        <div class="quick-grid">
+          <button class="quick-action" data-go="calendar"><span>📅</span><strong>Calendar</strong><small>See the full month</small></button>
+          <button class="quick-action parent-only hidden" data-go="submit"><span>✋</span><strong>Report Absence</strong><small>Tell the teacher privately</small></button>
+          <button class="quick-action teacher-only" data-go="absences"><span>✋</span><strong>Absences</strong><small>Review family submissions</small></button>
+          <button class="quick-action" id="schoolSiteBtn"><span>🏫</span><strong>School Website</strong><small>School information</small></button>
+          <button class="quick-action" id="spsdBtn"><span>🔗</span><strong>SPSD</strong><small>Division information</small></button>
+        </div>
+      </section>
+    </section>
+
+    <section id="calendarView" class="view hidden themed-calendar">
+      <div class="calendar-banner">
+        <div>
+          <div id="themeKicker" class="calendar-kicker"></div>
+          <h2 id="themeName"></h2>
+          <p id="themeBlurb"></p>
+        </div>
+        <div id="themeScene" class="calendar-scene" aria-hidden="true"></div>
+      </div>
+
       <div class="toolbar">
         <div class="month-nav">
           <button id="prevMonth" class="icon-btn" aria-label="Previous month">‹</button>
@@ -50,28 +115,26 @@
         </div>
       </div>
 
-      <div class="calendar-key" aria-label="Calendar key">
-        <span class="key-item"><i class="key-swatch key-noschool"></i>No school</span>
-        <span class="key-item"><i class="key-swatch key-break"></i>School break</span>
-        <span class="key-item"><i class="key-swatch key-conference"></i>Family event</span>
-        <span class="key-item"><i class="key-swatch key-milestone"></i>Important date</span>
-        <span class="key-item"><i class="key-swatch key-class"></i>Class event</span>
+      <div class="calendar-key">
+        <span><i class="key-swatch key-noschool"></i>No school</span>
+        <span><i class="key-swatch key-break"></i>School break</span>
+        <span><i class="key-swatch key-conference"></i>Family event</span>
+        <span><i class="key-swatch key-milestone"></i>Important date</span>
+        <span><i class="key-swatch key-class"></i>Class event</span>
       </div>
+
       <div id="spsdNotice" class="spsd-notice hidden">Official SPSD family dates are included automatically for the 2026–27 school year.</div>
 
       <div class="calendar-wrap">
         <div class="weekdays" id="weekdays"></div>
         <div class="calendar-grid" id="calendarGrid"></div>
       </div>
-
-      <p class="privacy-note parent-only hidden">
-        Planned absences are private. Other families cannot see them on this calendar.
-      </p>
     </section>
 
     <section id="importView" class="view hidden teacher-only">
       <div class="section-head">
         <div>
+          <div class="section-eyebrow">TEACHER TOOL</div>
           <h2>AI Event Import</h2>
           <p>Paste text or add a photo of a school calendar, newsletter, whiteboard, or schedule. Review everything before publishing.</p>
         </div>
@@ -82,7 +145,7 @@
           <h3>1. Add source</h3>
           <label class="field">
             <span>Paste text</span>
-            <textarea id="importText" rows="10" placeholder="Sept. 8 – School photos&#10;Sept. 14 – Library&#10;Sept. 21 – Terry Fox Run&#10;Sept. 28 – PD Day – No classes"></textarea>
+            <textarea id="importText" rows="10" placeholder="Sept. 8 – School photos&#10;Sept. 14 – Library&#10;Sept. 21 – Terry Fox Run"></textarea>
           </label>
           <label class="field">
             <span>Upload image</span>
@@ -90,7 +153,7 @@
           </label>
           <div id="imagePreview" class="image-preview empty">No image selected</div>
           <button id="extractBtn" class="primary wide">Extract events</button>
-          <p class="small">Prototype note: pasted text is parsed locally. Photo reading is represented in the interface but requires a vision API in the production version.</p>
+          <p class="small">Pasted text is parsed in this prototype. Live photo reading will be connected later through a secure AI service.</p>
         </div>
 
         <div class="panel">
@@ -106,8 +169,9 @@
     <section id="absencesView" class="view hidden teacher-only">
       <div class="section-head">
         <div>
+          <div class="section-eyebrow">PRIVATE</div>
           <h2>Planned Absences</h2>
-          <p>Private submissions from parents. These never appear on the public classroom calendar.</p>
+          <p>Submissions from parents. These never appear on the public classroom calendar.</p>
         </div>
       </div>
       <div id="absenceList" class="stack"></div>
@@ -116,8 +180,9 @@
     <section id="submitView" class="view hidden parent-only">
       <div class="section-head">
         <div>
+          <div class="section-eyebrow">PRIVATE</div>
           <h2>Report a Planned Absence</h2>
-          <p>This form is private and visible only to the teacher/admin account.</p>
+          <p>This form is visible only to the teacher/admin account.</p>
         </div>
       </div>
 
@@ -147,23 +212,46 @@
         <div id="submitMessage" class="success hidden">Your planned absence was submitted privately.</div>
       </div>
     </section>
+
+    <section id="editView" class="view hidden teacher-only">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">TEACHER TOOL</div>
+          <h2>Edit Parent Homepage</h2>
+          <p>Update the information families see on the homepage.</p>
+        </div>
+      </div>
+
+      <div class="edit-grid">
+        <div class="panel">
+          <h3>Important Reminder</h3>
+          <label class="field">
+            <span>Reminder</span>
+            <textarea id="editReminder" rows="5"></textarea>
+          </label>
+        </div>
+
+        <div class="panel">
+          <h3>We're Learning</h3>
+          <label class="field"><span>French / Literacy</span><input id="editFrench" type="text"></label>
+          <label class="field"><span>Math</span><input id="editMath" type="text"></label>
+          <label class="field"><span>Science / Inquiry</span><input id="editScience" type="text"></label>
+          <label class="field"><span>Class focus</span><input id="editFocus" type="text"></label>
+        </div>
+      </div>
+      <button id="saveHomeBtn" class="primary">Save homepage changes</button>
+      <span id="homeSaved" class="save-note hidden">Saved for this session.</span>
+    </section>
   </main>
 
   <dialog id="eventDialog">
     <form method="dialog" class="dialog-card">
       <div class="dialog-head">
-        <h3 id="dialogTitle">Add event</h3>
+        <h3>Add event</h3>
         <button value="cancel" class="icon-btn" aria-label="Close">×</button>
       </div>
-
-      <label class="field">
-        <span>Date</span>
-        <input id="eventDate" type="date" required />
-      </label>
-      <label class="field">
-        <span>Event name</span>
-        <input id="eventName" type="text" placeholder="Library" required />
-      </label>
+      <label class="field"><span>Date</span><input id="eventDate" type="date" required /></label>
+      <label class="field"><span>Event name</span><input id="eventName" type="text" placeholder="Library" required /></label>
       <label class="field">
         <span>Category</span>
         <select id="eventCategory">
