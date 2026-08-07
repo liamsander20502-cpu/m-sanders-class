@@ -1,9 +1,7 @@
-# M. Sander Parent Hub — Interactive Calendar
+# M. Sander Parent Hub — Calendar hover v2
 
-Added:
-- Hover over any calendar day to see how far away it is.
-- Smart labels: Today, Tomorrow, Yesterday, X days away, X days ago.
-- Sleek floating tooltip.
-- Subtle lift/shadow interaction on hover.
-- Touch support: tap a day on phones/tablets to see the same information.
-- Reduced-motion accessibility support.
+Fix:
+- Hovering a date now shows the countdown directly inside that calendar cell.
+- Labels include Today, Tomorrow, Yesterday, X days away, or X days ago.
+- The badge no longer depends on a separately positioned floating tooltip.
+- Touch devices show the same badge when a date is tapped.

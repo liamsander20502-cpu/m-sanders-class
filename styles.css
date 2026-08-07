@@ -854,3 +854,79 @@ dialog{border:0;border-radius:16px;width:min(460px,calc(100% - 24px));padding:0}
     animation:none !important;
   }
 }
+
+
+/* ======================================================
+   Calendar distance badge v2
+   The countdown now lives inside the hovered day itself.
+   ====================================================== */
+.date-hover-card {
+  display: none !important;
+}
+
+.day {
+  overflow: visible;
+}
+
+.day::before {
+  content: attr(data-distance);
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  z-index: 12;
+  transform: translate(-50%, 6px) scale(.96);
+  min-width: max-content;
+  max-width: calc(100% - 14px);
+  padding: 5px 8px;
+  border: 1px solid rgba(52,65,85,.13);
+  border-radius: 999px;
+  background: rgba(31,41,55,.92);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(15,23,42,.16);
+  font-size: .63rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .14s ease, transform .14s ease;
+}
+
+.day:hover::before,
+.day.is-hovered::before {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* Give the hovered date a very restrained highlight. */
+.day:hover,
+.day.is-hovered {
+  outline: 1px solid rgba(49,93,204,.18);
+  outline-offset: -1px;
+}
+
+/* Keep the countdown readable over official colour-coded days. */
+.day.official-noschool::before,
+.day.official-break::before,
+.day.official-conference::before,
+.day.official-milestone::before {
+  background: rgba(31,41,55,.94);
+  color: white;
+}
+
+/* On small screens the badge sits at the bottom and appears on tap. */
+@media (max-width: 720px) {
+  .day::before {
+    bottom: 5px;
+    padding: 4px 6px;
+    font-size: .55rem;
+  }
+}
+
+/* Don't let the distance badge interfere with printed calendars. */
+@media print {
+  .day::before {
+    display: none !important;
+  }
+}

@@ -208,12 +208,15 @@ $("saveLinksBtn").addEventListener("click",()=>{
 });
 
 
+
 function getDayDistanceLabel(iso){
   const target = fromISO(iso);
   target.setHours(0,0,0,0);
+
   const today = new Date();
   today.setHours(0,0,0,0);
-  const diff = Math.round((target - today) / 86400000);
+
+  const diff = Math.round((target.getTime() - today.getTime()) / 86400000);
 
   if(diff === 0) return "Today";
   if(diff === 1) return "Tomorrow";
@@ -222,51 +225,23 @@ function getDayDistanceLabel(iso){
   return `${Math.abs(diff)} days ago`;
 }
 
-function showDateHover(dayEl){
-  const iso = dayEl.dataset.date;
-  const card = $("dateHoverCard");
-  if(!iso || !card) return;
-
-  $("hoverDate").textContent = formatDate(iso,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
-  $("hoverCount").textContent = getDayDistanceLabel(iso);
-
-  document.querySelectorAll(".day.is-hovered").forEach(el=>{
-    if(el !== dayEl) el.classList.remove("is-hovered");
-  });
-  dayEl.classList.add("is-hovered");
-
-  const wrap = dayEl.closest(".calendar-wrap");
-  const dayRect = dayEl.getBoundingClientRect();
-  const wrapRect = wrap.getBoundingClientRect();
-
-  const left = dayRect.left - wrapRect.left + dayRect.width / 2;
-  const top = dayRect.top - wrapRect.top;
-
-  card.style.left = `${left}px`;
-  card.style.top = `${top}px`;
-  card.classList.remove("hidden");
-}
-
-function hideDateHover(dayEl){
-  if(dayEl) dayEl.classList.remove("is-hovered");
-  const card = $("dateHoverCard");
-  if(card) card.classList.add("hidden");
-}
-
 function wireCalendarHover(){
   document.querySelectorAll(".day").forEach(day=>{
-    day.addEventListener("mouseenter",()=>showDateHover(day));
-    day.addEventListener("mouseleave",()=>hideDateHover(day));
-    day.addEventListener("focusin",()=>showDateHover(day));
-    day.addEventListener("focusout",()=>hideDateHover(day));
+    const label = getDayDistanceLabel(day.dataset.date);
+    day.dataset.distance = label;
+    day.setAttribute("aria-label", `${day.dataset.date}: ${label}`);
+
+    day.addEventListener("mouseenter",()=>day.classList.add("is-hovered"));
+    day.addEventListener("mouseleave",()=>day.classList.remove("is-hovered"));
+    day.addEventListener("focusin",()=>day.classList.add("is-hovered"));
+    day.addEventListener("focusout",()=>day.classList.remove("is-hovered"));
 
     day.addEventListener("click",(e)=>{
       if(window.matchMedia("(hover: none)").matches){
         e.stopPropagation();
-        const alreadyOpen = day.classList.contains("is-hovered");
+        const open = day.classList.contains("is-hovered");
         document.querySelectorAll(".day.is-hovered").forEach(el=>el.classList.remove("is-hovered"));
-        if(alreadyOpen) hideDateHover(day);
-        else showDateHover(day);
+        if(!open) day.classList.add("is-hovered");
       }
     });
   });
@@ -384,7 +359,5 @@ loadSavedSite();runWelcomeSplash();renderRole();renderHome();renderCalendar();
 document.addEventListener("click",(e)=>{
   if(!e.target.closest(".day")){
     document.querySelectorAll(".day.is-hovered").forEach(el=>el.classList.remove("is-hovered"));
-    const card=$("dateHoverCard");
-    if(card) card.classList.add("hidden");
   }
 });
