@@ -100,7 +100,8 @@ function applyTheme(month,home=false){
     $("homeKicker").textContent=t.kicker;$("homeThemeName").textContent=t.name;$("homeThemeBlurb").textContent=t.blurb;
     $("homeScene").innerHTML=t.icons.map(i=>`<span class="scene-icon">${i}</span>`).join("");
   } else {
-    $("themeKicker").textContent=t.kicker;$("themeName").textContent=t.name;$("themeBlurb").textContent=t.blurb;
+    const monthName = new Date(2026, month, 1).toLocaleDateString(state.language==="fr"?"fr-CA":"en-CA",{month:"long"});
+    $("themeName").textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
     $("themeScene").innerHTML=t.icons.map(i=>`<span class="scene-icon">${i}</span>`).join("");
   }
 }
@@ -167,7 +168,11 @@ function renderCalendar(){
   for(let i=0;i<42;i++){
     const d=new Date(start);d.setDate(start.getDate()+i);const iso=toISO(d),monthMatch=d.getMonth()===m;
     const dayEvents=state.events.filter(ev=>ev.date===iso),official=getSpsdEventsForDate(iso),primary=official[0];
-    cells.push(`<div class="day ${monthMatch?"":"muted"} ${primary?`official-${primary.spsdType}`:""}" data-date="${iso}" ${primary?`title="${escapeHtml(primary.detail)}"`:""}>
+    const today = new Date(); today.setHours(0,0,0,0);
+    const cellDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const isPast = cellDate < today;
+
+    cells.push(`<div class="day ${monthMatch?"":"muted"} ${primary?`official-${primary.spsdType}`:""} ${isPast?"past-day":""}" data-date="${iso}" ${primary?`title="${escapeHtml(primary.detail)}"`:""}>
       <div class="day-top"><div class="day-number">${d.getDate()}</div>${primary?`<span class="day-status">${escapeHtml(primary.short)}</span>`:""}</div>
       <div class="day-events">${dayEvents.map(ev=>`<button class="event ${ev.category}" data-event-id="${ev.id}" title="${escapeHtml(ev.name)}">${ev.icon} ${escapeHtml(ev.name)}</button>`).join("")}</div>
     </div>`);

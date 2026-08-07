@@ -1,7 +1,7 @@
 # M. Sander's Class Parent Hub
 
-Opening animation now shows only:
-M. SANDER'S CLASS
-Bienvenue!
-
-École River Heights is no longer named on the opening screen.
+Latest changes:
+- Calendar seasonal headers now show only the month name.
+- Seasonal visuals remain in the header.
+- Every calendar day before the current date is automatically faded and crossed off.
+- The crossed-off state updates automatically based on the viewer's device date.
