@@ -1,10 +1,22 @@
-# M. Sander's Class — Clean Calendar + Hover
+# M. Sander's Class — Full Parent Hub Restored
 
-This update keeps the clean rebuilt calendar and adds only:
-- Smooth hover lift on calendar cells
-- Soft shadow and subtle border highlight
-- Slight date-number scale
-- Touch press feedback
-- Reduced-motion accessibility support
+Restored:
+- Animated M. Sander's Class / Bienvenue opening
+- Parent dashboard homepage
+- This Week
+- Important Reminder
+- Coming Up
+- We're Learning
+- École River Heights and SPSD links
+- Full working 7-column calendar
+- Official SPSD 2026–27 parent-relevant dates
+- Crossed-off past dates
+- Month-specific fonts and seasonal styling
+- Sleek hover pop-out on calendar cells
+- Full Site Editor for homepage, learning, events, and links
+- Browser persistence
 
-No countdown and no other calendar changes.
+Intentionally excluded:
+- Absences
+- AI import
+- Day countdown hover

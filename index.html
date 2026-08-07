@@ -1,58 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>M. Sander's Class</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="welcomeSplash" class="splash">
-    <div class="splash-inner">
-      <div class="splash-small">M. SANDER'S CLASS</div>
-      <div class="splash-icons"><span>✏️</span><span>🍎</span><span>📚</span></div>
-      <div class="splash-title">Bienvenue!</div>
+  <div id="welcomeSplash" class="welcome-splash" aria-hidden="true">
+    <div class="welcome-inner">
+      <div class="welcome-small">M. SANDER’S CLASS</div>
+      <div class="welcome-icons"><span>✏️</span><span>🍎</span><span>📚</span></div>
+      <div class="welcome-title">Bienvenue!</div>
+      <div class="welcome-line"></div>
     </div>
   </div>
 
   <header class="topbar">
-    <div>
-      <div class="eyebrow">CLASSE DE M. SANDER</div>
-      <h1>Welcome to Our Class</h1>
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <div class="eyebrow">CLASSE DE M. SANDER</div>
+        <h1 id="siteHeading">Welcome to Our Class</h1>
+      </div>
     </div>
-    <div class="top-actions">
-      <button id="homeTab" class="nav-btn">Home</button>
-      <button id="calendarTab" class="nav-btn active">Calendar</button>
-      <button id="editorTab" class="nav-btn">Site Editor</button>
-    </div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button class="nav-btn active" data-view="home">Home</button>
+      <button class="nav-btn" data-view="calendar">Calendar</button>
+      <button class="nav-btn" data-view="editor">Site Editor</button>
+    </nav>
   </header>
 
   <main class="shell">
-    <section id="homeView" class="view hidden">
-      <div class="home-panel">
-        <h2>M. Sander's Class</h2>
-        <p>This parent hub keeps important classroom dates and reminders in one place.</p>
-        <button class="primary" id="openCalendarFromHome">Open Calendar</button>
+    <section id="homeView" class="view">
+      <div id="homeHero" class="season-hero">
+        <div class="season-art" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <h2 id="homeMonth">August</h2>
+          <p id="familyNote" class="family-note hidden"></p>
+        </div>
+        <div id="homeIcons" class="hero-icons" aria-hidden="true"></div>
       </div>
+
+      <div class="dashboard-grid">
+        <section class="card week-card">
+          <div class="card-head">
+            <div>
+              <div class="section-kicker">AT A GLANCE</div>
+              <h2>This Week</h2>
+            </div>
+            <button class="link-btn" data-go="calendar">Full calendar →</button>
+          </div>
+          <div id="weekStrip" class="week-strip"></div>
+        </section>
+
+        <section class="card reminder-card">
+          <div class="section-kicker">DON’T FORGET</div>
+          <div class="pin">📌</div>
+          <h2>Important Reminder</h2>
+          <p id="reminderText"></p>
+        </section>
+
+        <section class="card upcoming-card">
+          <div class="section-kicker">NEXT UP</div>
+          <h2>Coming Up</h2>
+          <div id="comingUpList" class="coming-list"></div>
+        </section>
+
+        <section class="card learning-card">
+          <div class="section-kicker">IN OUR CLASSROOM</div>
+          <h2>We’re Learning</h2>
+          <div id="learningGrid" class="learning-grid"></div>
+        </section>
+      </div>
+
+      <section class="quick-section">
+        <div class="section-kicker">QUICK ACTIONS</div>
+        <div class="quick-grid">
+          <button class="quick-action" data-go="calendar">
+            <span>📅</span><strong>Calendar</strong><small>See the full month</small>
+          </button>
+          <button class="quick-action" id="schoolSiteBtn">
+            <span>🏫</span><strong>École River Heights</strong><small>Official school website</small>
+          </button>
+          <button class="quick-action" id="spsdBtn">
+            <span>🔗</span><strong>SPSD</strong><small>Division information</small>
+          </button>
+          <button class="quick-action" data-go="editor">
+            <span>✏️</span><strong>Site Editor</strong><small>Teacher controls</small>
+          </button>
+        </div>
+      </section>
     </section>
 
-    <section id="calendarView" class="view">
+    <section id="calendarView" class="view hidden">
       <div id="calendarSurface" class="calendar-surface">
-        <div class="month-heading-row">
-          <button id="prevMonth" class="month-arrow" aria-label="Previous month">‹</button>
-          <h2 id="monthHeading">August</h2>
-          <button id="nextMonth" class="month-arrow" aria-label="Next month">›</button>
-        </div>
-
-        <div class="calendar-tools">
-          <div class="legend">
-            <span><i class="swatch no-school"></i>No school</span>
-            <span><i class="swatch break"></i>School break</span>
-            <span><i class="swatch family"></i>Family event</span>
-            <span><i class="swatch important"></i>Important date</span>
-            <span><i class="swatch class-event"></i>Class event</span>
+        <div class="season-art calendar-season-art" aria-hidden="true"></div>
+        <div class="calendar-top">
+          <div class="month-nav">
+            <button id="prevMonth" class="icon-btn" aria-label="Previous month">‹</button>
+            <div>
+              <h2 id="calendarMonth">August</h2>
+              <div id="calendarMonthYear" class="month-year">August 2026</div>
+            </div>
+            <button id="nextMonth" class="icon-btn" aria-label="Next month">›</button>
           </div>
           <button id="addEventBtn" class="primary">+ Add event</button>
+        </div>
+
+        <div class="legend">
+          <span><i class="swatch no-school"></i>No school</span>
+          <span><i class="swatch break"></i>School break</span>
+          <span><i class="swatch family"></i>Family event</span>
+          <span><i class="swatch important"></i>Important date</span>
+          <span><i class="swatch class-event"></i>Class event</span>
         </div>
 
         <div class="calendar-card">
@@ -65,44 +126,103 @@
     </section>
 
     <section id="editorView" class="view hidden">
-      <div class="editor-wrap">
-        <div class="editor-head">
-          <div>
-            <div class="eyebrow">TEACHER CONTROL CENTRE</div>
-            <h2>Site Editor</h2>
-            <p>Add or remove your classroom events without touching the code.</p>
-          </div>
-          <div id="savedNote" class="saved-note">Saved on this device</div>
+      <div class="editor-head">
+        <div>
+          <div class="section-kicker">TEACHER CONTROL CENTRE</div>
+          <h2>Site Editor</h2>
+          <p>Change the information families see without editing code.</p>
         </div>
+        <div id="saveStatus" class="save-status">Saved on this device</div>
+      </div>
 
+      <div class="editor-tabs">
+        <button class="editor-tab active" data-panel="home">Homepage</button>
+        <button class="editor-tab" data-panel="learning">Learning</button>
+        <button class="editor-tab" data-panel="events">Calendar Events</button>
+        <button class="editor-tab" data-panel="links">Links</button>
+      </div>
+
+      <div id="editorHome" class="editor-panel">
         <div class="editor-grid">
           <div class="panel">
-            <h3>Add Event</h3>
-            <label>Date<input id="editorDate" type="date"></label>
-            <label>Event name<input id="editorName" type="text" placeholder="Library books due"></label>
+            <h3>Important Reminder</h3>
+            <label>Reminder
+              <textarea id="editReminder" rows="6"></textarea>
+            </label>
+          </div>
+          <div class="panel">
+            <h3>Homepage Details</h3>
+            <label>Class heading
+              <input id="editHeading" type="text" />
+            </label>
+            <label>Quick note for families
+              <textarea id="editFamilyNote" rows="4" placeholder="Optional short message"></textarea>
+            </label>
+          </div>
+        </div>
+        <button id="saveHomeBtn" class="primary">Save homepage</button>
+      </div>
+
+      <div id="editorLearning" class="editor-panel hidden">
+        <div class="panel">
+          <h3>We’re Learning</h3>
+          <div class="editor-grid">
+            <label>French / Literacy<input id="editFrench" type="text" /></label>
+            <label>Math<input id="editMath" type="text" /></label>
+            <label>Science / Inquiry<input id="editScience" type="text" /></label>
+            <label>Class focus<input id="editFocus" type="text" /></label>
+          </div>
+          <button id="saveLearningBtn" class="primary">Save learning</button>
+        </div>
+      </div>
+
+      <div id="editorEvents" class="editor-panel hidden">
+        <div class="editor-grid events-grid">
+          <div class="panel">
+            <h3>Add Calendar Event</h3>
+            <label>Date<input id="editorDate" type="date" /></label>
+            <label>Event name<input id="editorName" type="text" placeholder="Library books due" /></label>
             <label>Icon
               <select id="editorIcon">
                 <option>📚</option><option>✏️</option><option>🚌</option><option>📷</option>
                 <option>🎨</option><option>🎵</option><option>⭐</option><option>📌</option>
               </select>
             </label>
-            <button id="editorAdd" class="primary wide">Add Event</button>
+            <button id="editorAddEvent" class="primary wide">Add Event</button>
           </div>
-
           <div class="panel">
             <h3>My Class Events</h3>
-            <div id="eventList"></div>
+            <p class="small">Official SPSD dates are separate and cannot be deleted here.</p>
+            <div id="editorEventList"></div>
           </div>
         </div>
+      </div>
+
+      <div id="editorLinks" class="editor-panel hidden">
+        <div class="panel">
+          <h3>Parent Links</h3>
+          <div class="editor-grid">
+            <label>School website<input id="editSchoolLink" type="url" /></label>
+            <label>SPSD website<input id="editSpsdLink" type="url" /></label>
+          </div>
+          <button id="saveLinksBtn" class="primary">Save links</button>
+        </div>
+      </div>
+
+      <div class="editor-note">
+        These edits save in this browser. A database can later make the same editor publish instantly to every parent.
       </div>
     </section>
   </main>
 
   <dialog id="eventDialog">
     <form method="dialog" class="dialog-card">
-      <div class="dialog-head"><h3>Add Event</h3><button value="cancel" class="close">×</button></div>
-      <label>Date<input id="dialogDate" type="date"></label>
-      <label>Event name<input id="dialogName" type="text" placeholder="Special event"></label>
+      <div class="dialog-head">
+        <h3>Add Event</h3>
+        <button value="cancel" class="close-btn" aria-label="Close">×</button>
+      </div>
+      <label>Date<input id="dialogDate" type="date" /></label>
+      <label>Event name<input id="dialogName" type="text" placeholder="Special event" /></label>
       <label>Icon
         <select id="dialogIcon">
           <option>📚</option><option>✏️</option><option>🚌</option><option>📷</option>
