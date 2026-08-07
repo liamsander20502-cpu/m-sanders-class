@@ -1,15 +1,12 @@
 # M. Sander's Class Parent Hub
 
-This update adds:
-- A distinct display font treatment for each month.
-- A teacher-only Site Editor.
-- Edit homepage reminder and heading.
-- Add an optional family note.
-- Edit all learning highlights.
-- Add/delete class calendar events.
-- Edit school and SPSD links.
-- Browser persistence using localStorage.
-
-Important:
-Because GitHub Pages is currently static, browser edits save on the teacher's device only.
-A backend/database is still required before these edits can publish instantly to all parents.
+Latest update:
+- Added clean, minimalist seasonal backgrounds for every month.
+- December and January include subtle snow.
+- February includes faint heart motifs.
+- March/May use soft spring vegetation and petals.
+- April uses light rain lines.
+- June/July use understated summer light/wave shapes.
+- August has a faint school-notebook grid.
+- September/November use warm leaf motifs.
+- October gets a restrained moon/web treatment.
