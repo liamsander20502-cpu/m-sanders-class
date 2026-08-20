@@ -454,3 +454,66 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   document.head.appendChild(style);
 })();
+
+/* Add Edsby Parent Portal button */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .edsby-portal {
+      display: grid;
+      gap: 5px;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      cursor: pointer;
+      transition:
+        transform .16s ease,
+        box-shadow .16s ease;
+    }
+
+    .edsby-portal span {
+      font-size: 1.35rem;
+    }
+
+    .edsby-portal strong {
+      font-size: .9rem;
+    }
+
+    .edsby-portal small {
+      color: var(--muted);
+    }
+
+    @media (hover:hover) {
+      .edsby-portal:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(31,41,55,.12);
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  const quickGrid = document.querySelector(".quick-grid");
+
+  if (!quickGrid || document.getElementById("edsbyPortalBtn")) return;
+
+  const button = document.createElement("button");
+
+  button.id = "edsbyPortalBtn";
+  button.className = "edsby-portal";
+
+  button.innerHTML = `
+    <span>👨‍👩‍👧</span>
+    <strong>Parent Portal — Edsby</strong>
+    <small>Messages, attendance, progress, and school information</small>
+  `;
+
+  button.addEventListener("click", () => {
+    window.open("https://spsd.edsby.com/", "_blank");
+  });
+
+  quickGrid.appendChild(button);
+})();
