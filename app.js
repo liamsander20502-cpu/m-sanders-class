@@ -567,15 +567,10 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
         M. SANDER'S CLASS
       </div>
 
-      <div style="
-        font-size:42px;
-        margin-bottom:18px;
-      ">
-        ✏️ 🍎 📚
-      </div>
+      
 
       <div style="
-        font-size:54px;
+        font-size:60px;
         font-weight:800;
       ">
         Bienvenue!
@@ -619,58 +614,5 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
     splash.remove();
   }, 3900);
 })();
-
-/* Clean welcome screen */
-
-(function () {
-    const splash = document.createElement("div");
-
-    splash.innerHTML = `
-        <div style="text-align:center;">
-            <div style="
-                font-size:14px;
-                font-weight:700;
-                letter-spacing:3px;
-                margin-bottom:18px;
-                opacity:.8;
-            ">
-                CLASSE DE M. SANDER
-            </div>
-
-            <div style="
-                font-size:58px;
-                font-weight:800;
-            ">
-                Bienvenue
-            </div>
-        </div>
-    `;
-
-    Object.assign(splash.style, {
-        position: "fixed",
-        inset: "0",
-        zIndex: "999999",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#274a89",
-        color: "white",
-        opacity: "0",
-        transition: "opacity 1s ease"
-    });
-
-    document.body.appendChild(splash);
-
-    setTimeout(() => {
-        splash.style.opacity = "1";
-    }, 100);
-
-    setTimeout(() => {
-        splash.style.opacity = "0";
-    }, 3000);
-
-    setTimeout(() => {
-        splash.remove();
-    }, 4200);
 
 })();
