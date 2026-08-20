@@ -1,8 +1,10 @@
-# M. Sander's Class — Intro Restored
+# M. Sander's Class — Simple Fade Intro
 
-- Keeps the large full-calendar cells exactly as they were.
-- Restores the M. Sander's Class / Bienvenue entry screen.
-- Adds a reliable fade-in.
-- Adds visible bounce/pop animation to the panel, icons, and title.
-- Holds for a couple seconds.
-- Fades out smoothly.
+Keeps the large full-calendar layout unchanged.
+
+Opening animation is now intentionally simple:
+- Fade in
+- Hold for a couple seconds
+- Fade out
+
+All older bounce/pop child animations are explicitly disabled.

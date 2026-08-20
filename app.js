@@ -258,4 +258,4 @@ load();
 renderHome();
 renderCalendar();
 renderEventList();
-setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4600);
+setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000);
