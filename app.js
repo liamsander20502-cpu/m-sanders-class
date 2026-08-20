@@ -350,3 +350,27 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   document.head.appendChild(style);
 })();
+
+/* Make month titles larger */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .month-title,
+    .calendar-month,
+    .hero-month {
+      font-size: 3rem !important;
+      line-height: 1 !important;
+      font-weight: 700 !important;
+    }
+
+    .month-banner h1,
+    .month-banner h2,
+    .month-banner h3 {
+      font-size: 3rem !important;
+      line-height: 1 !important;
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
