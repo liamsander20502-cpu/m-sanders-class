@@ -534,3 +534,141 @@ body:has(#calendarView:not(.hidden)) .shell {
     animation-delay: 0ms !important;
   }
 }
+
+
+/* ======================================================
+   RESTORED ENTRY SCREEN
+   Keeps the large full calendar unchanged.
+   ====================================================== */
+
+#welcomeSplash.welcome-splash {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: grid !important;
+  place-items: center !important;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255,255,255,.10), transparent 28%),
+    linear-gradient(135deg,#274a89 0%,#3f6fc0 58%,#6f8ed0 100%) !important;
+  color: #fff !important;
+  opacity: 0;
+  visibility: visible !important;
+  pointer-events: all !important;
+  animation:
+    restoredSplashFadeIn .65s ease-out forwards,
+    restoredSplashFadeOut .9s ease-in 3.45s forwards !important;
+}
+
+#welcomeSplash .welcome-inner {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(26px) scale(.90);
+  animation: restoredPanelBounce .95s .18s cubic-bezier(.18,1.5,.32,1) forwards !important;
+}
+
+#welcomeSplash .welcome-small {
+  font-size: .78rem;
+  font-weight: 850;
+  letter-spacing: .14em;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: restoredSmallIn .5s .32s ease-out forwards !important;
+}
+
+#welcomeSplash .welcome-icons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 20px 0 14px;
+}
+
+#welcomeSplash .welcome-icons span {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15,25,60,.20);
+  font-size: 1.95rem;
+  opacity: 0;
+  transform: translateY(22px) scale(.72);
+  animation: restoredIconBounce .7s cubic-bezier(.17,1.65,.28,1) forwards !important;
+}
+
+#welcomeSplash .welcome-icons span:nth-child(1){animation-delay:.48s !important}
+#welcomeSplash .welcome-icons span:nth-child(2){animation-delay:.62s !important}
+#welcomeSplash .welcome-icons span:nth-child(3){animation-delay:.76s !important}
+
+#welcomeSplash .welcome-title {
+  font-size: clamp(2.3rem,5vw,3.2rem);
+  font-weight: 850;
+  opacity: 0;
+  transform: translateY(14px) scale(.86);
+  animation: restoredTitleBounce .8s .78s cubic-bezier(.18,1.55,.3,1) forwards !important;
+}
+
+#welcomeSplash .welcome-line {
+  width: 112px;
+  height: 3px;
+  margin: 15px auto 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.88);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: restoredLineIn .58s 1.04s ease forwards !important;
+}
+
+@keyframes restoredSplashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes restoredPanelBounce {
+  0% { opacity: 0; transform: translateY(26px) scale(.90); }
+  58% { opacity: 1; transform: translateY(-8px) scale(1.055); }
+  78% { transform: translateY(3px) scale(.985); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes restoredSmallIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes restoredIconBounce {
+  0% { opacity: 0; transform: translateY(22px) scale(.72); }
+  62% { opacity: 1; transform: translateY(-7px) scale(1.13); }
+  82% { transform: translateY(2px) scale(.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes restoredTitleBounce {
+  0% { opacity: 0; transform: translateY(14px) scale(.86); }
+  62% { opacity: 1; transform: translateY(-4px) scale(1.07); }
+  82% { transform: translateY(2px) scale(.985); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes restoredLineIn {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes restoredSplashFadeOut {
+  0% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #welcomeSplash,
+  #welcomeSplash .welcome-inner,
+  #welcomeSplash .welcome-small,
+  #welcomeSplash .welcome-icons span,
+  #welcomeSplash .welcome-title,
+  #welcomeSplash .welcome-line {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+  }
+}

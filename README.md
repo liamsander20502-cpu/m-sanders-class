@@ -1,11 +1,8 @@
-# M. Sander's Class — Full Page Calendar + Real Bounce Intro
+# M. Sander's Class — Intro Restored
 
-Changes:
-- Full calendar now uses nearly the full browser width
-- Much taller day cells
-- More room for events and labels
-- Older intro animation rules are explicitly overridden
-- Intro now has a true bounce/pop sequence
-- Icons bounce in one-by-one
-- Bienvenue gets a visible springy bounce
-- Smooth fade-in and fade-out
+- Keeps the large full-calendar cells exactly as they were.
+- Restores the M. Sander's Class / Bienvenue entry screen.
+- Adds a reliable fade-in.
+- Adds visible bounce/pop animation to the panel, icons, and title.
+- Holds for a couple seconds.
+- Fades out smoothly.
