@@ -546,25 +546,5 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
     quickGrid.appendChild(schoolCashBtn);
   }
 
-  if (!document.getElementById("spsdCalendarBtn")) {
-    const calendarBtn = document.createElement("button");
-
-    calendarBtn.id = "spsdCalendarBtn";
-    calendarBtn.className = "quick-action";
-
-    calendarBtn.innerHTML = `
-      <span>🗓️</span>
-      <strong>SPSD School Year</strong>
-      <small>Division calendar and important dates</small>
-    `;
-
-    calendarBtn.addEventListener("click", () => {
-      window.open(
-        "https://www.spsd.sk.ca/Pages/default.aspx",
-        "_blank"
-      );
-    });
-
-    quickGrid.appendChild(calendarBtn);
-  }
+ 
 })();
