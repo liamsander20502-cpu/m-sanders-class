@@ -774,3 +774,53 @@ body:has(#calendarView:not(.hidden)) .shell {
     animation-duration: .01ms !important;
   }
 }
+
+
+/* ======================================================
+   Passed-day marker
+   Automatically applies to dates before today.
+   ====================================================== */
+
+.day.past-day {
+  position: relative;
+}
+
+/* Simple pencil-like diagonal line across completed days */
+.day.past-day::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(72, 79, 91, .30);
+  transform: rotate(-8deg);
+  transform-origin: center;
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Keep past days readable, just slightly quieter */
+.day.past-day {
+  opacity: .72;
+}
+
+.day.past-day .day-number {
+  text-decoration: none !important;
+}
+
+/* Today and future days remain untouched */
+@media (max-width: 720px) {
+  .day.past-day::after {
+    left: 5%;
+    right: 5%;
+    height: 1.5px;
+  }
+}
+
+@media print {
+  .day.past-day::after {
+    background: rgba(50, 50, 50, .38);
+  }
+}
