@@ -30,171 +30,231 @@ dialog{border:0;border-radius:16px;padding:0;width:min(430px,calc(100% - 24px))}
 
 
 /* ======================================================
-   Bigger calendar cells + smoother welcome screen
+   Full Calendar XL + bouncy intro
    ====================================================== */
 
-.calendar-surface {
-  padding: 22px;
+/* Only make the FULL calendar larger */
+#calendarView .calendar-surface {
+  padding: 26px;
 }
 
-.weekdays div {
-  padding: 11px 5px;
-  font-size: .8rem;
+#calendarView .calendar-card {
+  border-radius: 18px;
 }
 
-.day {
-  min-height: 140px;
-  padding: 9px;
+#calendarView .weekdays div {
+  padding: 12px 6px;
+  font-size: .82rem;
 }
 
-.day-top {
-  min-height: 30px;
+#calendarView .day {
+  min-height: 165px;
+  padding: 11px;
 }
 
-.day-number {
-  min-width: 28px;
-  height: 28px;
-  font-size: .84rem;
+#calendarView .day-top {
+  min-height: 34px;
 }
 
-.day-label {
-  max-width: calc(100% - 34px);
-  padding: 4px 6px;
-  font-size: .6rem;
-  line-height: 1.12;
+#calendarView .day-number {
+  min-width: 30px;
+  height: 30px;
+  font-size: .9rem;
 }
 
-.day-events {
-  gap: 5px;
-  margin-top: 7px;
+#calendarView .day-label {
+  max-width: calc(100% - 38px);
+  padding: 5px 7px;
+  font-size: .63rem;
+  line-height: 1.15;
 }
 
-.event {
-  padding: 6px 7px;
-  font-size: .7rem;
-  line-height: 1.2;
+#calendarView .day-events {
+  gap: 6px;
+  margin-top: 8px;
 }
 
-@media (min-width: 1100px) {
-  .shell {
-    width: min(1360px, 100%);
+#calendarView .event {
+  padding: 7px 8px;
+  font-size: .73rem;
+  line-height: 1.25;
+}
+
+/* Give full calendar more desktop width without changing the homepage */
+@media (min-width: 1150px) {
+  body:has(#calendarView:not(.hidden)) .shell {
+    width: min(1480px, 100%);
   }
 
-  .day {
-    min-height: 150px;
+  #calendarView .day {
+    min-height: 178px;
   }
 }
 
 @media (max-width: 900px) {
-  .day {
-    min-height: 118px;
+  #calendarView .day {
+    min-height: 125px;
   }
 }
 
 @media (max-width: 720px) {
-  .calendar-surface {
+  #calendarView .calendar-surface {
     padding: 14px;
   }
 
-  .day {
-    min-height: 96px;
+  #calendarView .day {
+    min-height: 100px;
     padding: 6px;
   }
 
-  .day-number {
+  #calendarView .day-number {
     min-width: 24px;
     height: 24px;
-    font-size: .75rem;
+    font-size: .76rem;
   }
 
-  .day-label {
+  #calendarView .day-label {
     font-size: .5rem;
     padding: 3px 4px;
   }
 
-  .event {
+  #calendarView .event {
     font-size: .58rem;
     padding: 4px 5px;
   }
 }
 
-/* Welcome screen: fade in, hold, fade out */
+/* ------------------------------------------------------
+   Intro animation: soft bounce, not cartoony
+   ------------------------------------------------------ */
+
 .welcome-splash {
   opacity: 0;
   visibility: visible;
   animation:
-    welcomeFadeIn .7s ease-out forwards,
-    welcomeFadeOut .9s ease-in 3.1s forwards;
+    introFadeIn .65s ease-out forwards,
+    introFadeOut .9s ease-in 3.35s forwards;
 }
 
 .welcome-inner {
   opacity: 0;
-  transform: translateY(10px) scale(.985);
-  animation: welcomeContentIn .75s .22s cubic-bezier(.2,.7,.2,1) forwards;
+  transform: translateY(18px) scale(.94);
+  animation: introPanelBounce .9s .18s cubic-bezier(.22,1.35,.36,1) forwards;
+}
+
+.welcome-small {
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: introTextDrop .55s .32s ease-out forwards;
 }
 
 .welcome-icons span {
   opacity: 0;
-  transform: translateY(10px) scale(.92);
-  animation: welcomeIconIn .5s ease forwards;
+  transform: translateY(18px) scale(.78) rotate(-4deg);
+  animation: introIconBounce .62s cubic-bezier(.2,1.45,.3,1) forwards;
 }
 
-.welcome-icons span:nth-child(1) { animation-delay: .38s; }
-.welcome-icons span:nth-child(2) { animation-delay: .50s; }
-.welcome-icons span:nth-child(3) { animation-delay: .62s; }
+.welcome-icons span:nth-child(1) { animation-delay: .48s; }
+.welcome-icons span:nth-child(2) { animation-delay: .60s; transform: translateY(18px) scale(.78) rotate(4deg); }
+.welcome-icons span:nth-child(3) { animation-delay: .72s; transform: translateY(18px) scale(.78) rotate(-2deg); }
+
+.welcome-title {
+  opacity: 0;
+  transform: translateY(12px) scale(.92);
+  animation: introTitleBounce .72s .72s cubic-bezier(.2,1.4,.3,1) forwards;
+}
 
 .welcome-line {
   transform: scaleX(0);
   transform-origin: center;
-  animation: welcomeLineIn .6s .78s ease forwards;
+  animation: introLineGrow .62s .95s ease forwards;
 }
 
-@keyframes welcomeFadeIn {
+@keyframes introFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes welcomeContentIn {
-  from {
+@keyframes introPanelBounce {
+  0% {
     opacity: 0;
-    transform: translateY(10px) scale(.985);
+    transform: translateY(18px) scale(.94);
   }
-  to {
+  65% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.015);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes welcomeIconIn {
+@keyframes introTextDrop {
   from {
     opacity: 0;
-    transform: translateY(10px) scale(.92);
+    transform: translateY(-8px);
   }
   to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introIconBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(.78) rotate(-4deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.06) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes introTitleBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(.92);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.03);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes welcomeLineIn {
-  to { transform: scaleX(1); }
+@keyframes introLineGrow {
+  from { transform: scaleX(0); opacity: .4; }
+  to { transform: scaleX(1); opacity: 1; }
 }
 
-@keyframes welcomeFadeOut {
+@keyframes introFadeOut {
   from {
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
   }
   to {
     opacity: 0;
     visibility: hidden;
+    transform: scale(1.018);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .welcome-splash,
   .welcome-inner,
+  .welcome-small,
   .welcome-icons span,
+  .welcome-title,
   .welcome-line {
     animation-duration: .01ms !important;
     animation-delay: 0ms !important;

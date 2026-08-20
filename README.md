@@ -1,10 +1,13 @@
-# M. Sander's Class — Bigger Cells + Smoother Welcome
+# M. Sander's Class — Large Calendar + Bouncy Intro
 
-Changes:
-- Larger calendar day cells with more room for events
-- Wider calendar on desktop
-- Smooth welcome fade-in
-- Welcome content gently rises into place
-- Welcome stays visible for a couple seconds
-- Smooth welcome fade-out
-- Reduced-motion support preserved
+This update keeps the current Parent Hub intact and only changes:
+
+- Much larger cells on the full Calendar page
+- More room for official dates and class events
+- Wider full-calendar layout on large screens
+- Intro fades in smoothly
+- Intro content gently bounces into place
+- Icons pop in one-by-one
+- Bienvenue title gets a subtle bounce
+- Intro holds for a couple seconds and fades out smoothly
+- Reduced-motion accessibility remains supported
