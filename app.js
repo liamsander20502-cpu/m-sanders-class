@@ -309,3 +309,44 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   document.head.appendChild(style);
 })();
+
+/* Make clickable controls feel interactive */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    button,
+    a[href],
+    .quick-action {
+      transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease,
+        border-color 0.16s ease,
+        background-color 0.16s ease !important;
+    }
+
+    @media (hover: hover) {
+      button:hover,
+      a[href]:hover,
+      .quick-action:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(31, 41, 55, 0.12);
+        z-index: 5;
+      }
+    }
+
+    button:active,
+    a[href]:active,
+    .quick-action:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    button,
+    a[href],
+    .quick-action {
+      cursor: pointer;
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
