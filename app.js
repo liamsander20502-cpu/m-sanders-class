@@ -414,11 +414,11 @@ renderEventList();
 
   setTimeout(() => {
     splash.style.opacity = "0";
-  }, 3000);
+  }, 1800);
 
   setTimeout(() => {
     splash.remove();
-  }, 3900);
+  }, 2700);
 })();
 
 /* Make the full calendar slightly shorter so it fits on screen */
