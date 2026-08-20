@@ -283,3 +283,29 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   document.head.appendChild(style);
 })();
+
+
+/* Make the full calendar fit on one screen */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    #calendarView .calendar-grid {
+      grid-template-rows: repeat(6, 1fr) !important;
+      height: calc(100vh - 220px) !important;
+    }
+
+    #calendarView .day {
+      min-height: 0 !important;
+      padding: 6px !important;
+      overflow: hidden;
+    }
+
+    #calendarView .calendar-card {
+      max-width: 96vw !important;
+      width: 96vw !important;
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
