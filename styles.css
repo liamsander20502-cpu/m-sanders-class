@@ -260,3 +260,277 @@ dialog{border:0;border-radius:16px;padding:0;width:min(430px,calc(100% - 24px))}
     animation-delay: 0ms !important;
   }
 }
+
+
+/* ======================================================
+   FULL-PAGE CALENDAR + DEFINITIVE INTRO OVERRIDE
+   ====================================================== */
+
+/* Make the full calendar use nearly the whole browser */
+body:has(#calendarView:not(.hidden)) .shell {
+  width: 100% !important;
+  max-width: none !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+#calendarView {
+  width: 100%;
+}
+
+#calendarView .calendar-surface {
+  width: 100%;
+  padding: 26px 28px 30px !important;
+  border-radius: 22px;
+}
+
+#calendarView .calendar-card {
+  width: 100%;
+  border-radius: 18px;
+}
+
+#calendarView .weekdays div {
+  padding: 13px 6px !important;
+  font-size: .86rem !important;
+}
+
+#calendarView .day {
+  min-height: 185px !important;
+  padding: 12px !important;
+}
+
+#calendarView .day-top {
+  min-height: 38px !important;
+}
+
+#calendarView .day-number {
+  min-width: 32px !important;
+  height: 32px !important;
+  font-size: .95rem !important;
+}
+
+#calendarView .day-label {
+  max-width: calc(100% - 40px) !important;
+  padding: 5px 7px !important;
+  font-size: .66rem !important;
+  line-height: 1.15 !important;
+}
+
+#calendarView .day-events {
+  gap: 7px !important;
+  margin-top: 9px !important;
+}
+
+#calendarView .event {
+  padding: 7px 9px !important;
+  font-size: .75rem !important;
+  line-height: 1.25 !important;
+}
+
+/* On large screens, let the calendar become genuinely huge */
+@media (min-width: 1250px) {
+  body:has(#calendarView:not(.hidden)) .shell {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  #calendarView .calendar-surface {
+    padding: 28px 30px 32px !important;
+  }
+
+  #calendarView .day {
+    min-height: 205px !important;
+  }
+}
+
+/* Medium screens still roomy */
+@media (max-width: 1100px) {
+  #calendarView .day {
+    min-height: 150px !important;
+  }
+}
+
+/* Mobile remains usable */
+@media (max-width: 720px) {
+  body:has(#calendarView:not(.hidden)) .shell {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  #calendarView .calendar-surface {
+    padding: 12px !important;
+  }
+
+  #calendarView .day {
+    min-height: 102px !important;
+    padding: 6px !important;
+  }
+
+  #calendarView .day-number {
+    min-width: 24px !important;
+    height: 24px !important;
+    font-size: .76rem !important;
+  }
+}
+
+/* ------------------------------------------------------
+   REAL INTRO BOUNCE
+   Fully override older splash animations.
+   ------------------------------------------------------ */
+
+.welcome-splash {
+  opacity: 0 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: splashFadeInReal .7s ease-out forwards,
+             splashFadeOutReal .9s ease-in 3.7s forwards !important;
+}
+
+.welcome-inner {
+  opacity: 0 !important;
+  transform: translateY(30px) scale(.88) !important;
+  animation: splashBounceInReal 1.05s .18s cubic-bezier(.18,1.55,.32,1) forwards !important;
+}
+
+.welcome-small {
+  opacity: 0 !important;
+  transform: translateY(-12px) !important;
+  animation: splashSmallInReal .55s .38s ease-out forwards !important;
+}
+
+.welcome-icons span {
+  opacity: 0 !important;
+  transform: translateY(24px) scale(.70) rotate(-8deg) !important;
+  animation: splashIconPopReal .72s cubic-bezier(.17,1.7,.28,1) forwards !important;
+}
+
+.welcome-icons span:nth-child(1) {
+  animation-delay: .52s !important;
+}
+
+.welcome-icons span:nth-child(2) {
+  animation-delay: .68s !important;
+}
+
+.welcome-icons span:nth-child(3) {
+  animation-delay: .84s !important;
+}
+
+.welcome-title {
+  opacity: 0 !important;
+  transform: translateY(18px) scale(.82) !important;
+  animation: splashTitleBounceReal .85s .82s cubic-bezier(.18,1.6,.3,1) forwards !important;
+}
+
+.welcome-line {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+  transform-origin: center !important;
+  animation: splashLineReal .6s 1.08s ease-out forwards !important;
+}
+
+@keyframes splashFadeInReal {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes splashBounceInReal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(.88);
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.06);
+  }
+  78% {
+    transform: translateY(4px) scale(.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes splashSmallInReal {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashIconPopReal {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(.70) rotate(-8deg);
+  }
+  62% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.14) rotate(3deg);
+  }
+  80% {
+    transform: translateY(3px) scale(.97) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes splashTitleBounceReal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(.82);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.08);
+  }
+  82% {
+    transform: translateY(2px) scale(.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes splashLineReal {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes splashFadeOutReal {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.025);
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-splash,
+  .welcome-inner,
+  .welcome-small,
+  .welcome-icons span,
+  .welcome-title,
+  .welcome-line {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+  }
+}

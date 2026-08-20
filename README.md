@@ -1,13 +1,11 @@
-# M. Sander's Class — Large Calendar + Bouncy Intro
+# M. Sander's Class — Full Page Calendar + Real Bounce Intro
 
-This update keeps the current Parent Hub intact and only changes:
-
-- Much larger cells on the full Calendar page
-- More room for official dates and class events
-- Wider full-calendar layout on large screens
-- Intro fades in smoothly
-- Intro content gently bounces into place
-- Icons pop in one-by-one
-- Bienvenue title gets a subtle bounce
-- Intro holds for a couple seconds and fades out smoothly
-- Reduced-motion accessibility remains supported
+Changes:
+- Full calendar now uses nearly the full browser width
+- Much taller day cells
+- More room for events and labels
+- Older intro animation rules are explicitly overridden
+- Intro now has a true bounce/pop sequence
+- Icons bounce in one-by-one
+- Bienvenue gets a visible springy bounce
+- Smooth fade-in and fade-out
