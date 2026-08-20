@@ -420,3 +420,37 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
     splash.remove();
   }, 3900);
 })();
+
+/* Make the full calendar slightly shorter so it fits on screen */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    #calendarView .calendar-grid {
+      height: calc(100vh - 245px) !important;
+      grid-template-rows: repeat(6, minmax(0, 1fr)) !important;
+    }
+
+    #calendarView .day {
+      min-height: 0 !important;
+      height: auto !important;
+      padding: 6px !important;
+    }
+
+    #calendarView .weekdays div {
+      padding: 6px 4px !important;
+    }
+
+    #calendarView .calendar-surface {
+      padding-top: 14px !important;
+      padding-bottom: 14px !important;
+    }
+
+    #calendarView .legend {
+      margin-top: 7px !important;
+      margin-bottom: 7px !important;
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
