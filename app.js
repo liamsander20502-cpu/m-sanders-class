@@ -374,3 +374,49 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   document.head.appendChild(style);
 })();
+/* Fresh intro screen created directly from JavaScript */
+(function () {
+  const oldSplash = document.getElementById("welcomeSplash");
+  if (oldSplash) oldSplash.remove();
+
+  const splash = document.createElement("div");
+
+  splash.style.position = "fixed";
+  splash.style.inset = "0";
+  splash.style.zIndex = "999999";
+  splash.style.display = "flex";
+  splash.style.alignItems = "center";
+  splash.style.justifyContent = "center";
+  splash.style.background = "linear-gradient(135deg, #274a89, #3f6fc0 58%, #6f8ed0)";
+  splash.style.color = "white";
+  splash.style.opacity = "0";
+  splash.style.transition = "opacity 0.8s ease";
+
+  splash.innerHTML = `
+    <div style="text-align:center;">
+      <div style="font-size:14px;font-weight:800;letter-spacing:0.14em;margin-bottom:16px;">
+        M. SANDER’S CLASS
+      </div>
+
+      <div style="font-size:54px;font-weight:850;">
+        Bienvenue!
+      </div>
+
+      <div style="width:110px;height:3px;background:rgba(255,255,255,.85);border-radius:99px;margin:18px auto 0;"></div>
+    </div>
+  `;
+
+  document.body.appendChild(splash);
+
+  requestAnimationFrame(() => {
+    splash.style.opacity = "1";
+  });
+
+  setTimeout(() => {
+    splash.style.opacity = "0";
+  }, 3000);
+
+  setTimeout(() => {
+    splash.remove();
+  }, 3900);
+})();
