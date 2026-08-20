@@ -258,4 +258,28 @@ load();
 renderHome();
 renderCalendar();
 renderEventList();
-setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000);
+setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000);/* Add a subtle strike-through to days that have already passed */
+(function () {
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .day.past-day {
+      position: relative;
+    }
+
+    .day.past-day::after {
+      content: "";
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 50%;
+      height: 2px;
+      background: rgba(80, 80, 80, 0.35);
+      border-radius: 999px;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+  `;
+
+  document.head.appendChild(style);
+})();
