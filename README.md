@@ -1,22 +1,10 @@
-# M. Sander's Class — Full Parent Hub Restored
+# M. Sander's Class — Bigger Cells + Smoother Welcome
 
-Restored:
-- Animated M. Sander's Class / Bienvenue opening
-- Parent dashboard homepage
-- This Week
-- Important Reminder
-- Coming Up
-- We're Learning
-- École River Heights and SPSD links
-- Full working 7-column calendar
-- Official SPSD 2026–27 parent-relevant dates
-- Crossed-off past dates
-- Month-specific fonts and seasonal styling
-- Sleek hover pop-out on calendar cells
-- Full Site Editor for homepage, learning, events, and links
-- Browser persistence
-
-Intentionally excluded:
-- Absences
-- AI import
-- Day countdown hover
+Changes:
+- Larger calendar day cells with more room for events
+- Wider calendar on desktop
+- Smooth welcome fade-in
+- Welcome content gently rises into place
+- Welcome stays visible for a couple seconds
+- Smooth welcome fade-out
+- Reduced-motion support preserved
