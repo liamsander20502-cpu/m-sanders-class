@@ -517,3 +517,54 @@ setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000)
 
   quickGrid.appendChild(button);
 })();
+
+/* Add SchoolCash Online and SPSD Calendar buttons */
+(function () {
+  const quickGrid = document.querySelector(".quick-grid");
+
+  if (!quickGrid) return;
+
+  if (!document.getElementById("schoolCashBtn")) {
+    const schoolCashBtn = document.createElement("button");
+
+    schoolCashBtn.id = "schoolCashBtn";
+    schoolCashBtn.className = "quick-action";
+
+    schoolCashBtn.innerHTML = `
+      <span>💳</span>
+      <strong>SchoolCash Online</strong>
+      <small>Payments, fees, and field trips</small>
+    `;
+
+    schoolCashBtn.addEventListener("click", () => {
+      window.open(
+        "https://spsd.schoolcashonline.com/",
+        "_blank"
+      );
+    });
+
+    quickGrid.appendChild(schoolCashBtn);
+  }
+
+  if (!document.getElementById("spsdCalendarBtn")) {
+    const calendarBtn = document.createElement("button");
+
+    calendarBtn.id = "spsdCalendarBtn";
+    calendarBtn.className = "quick-action";
+
+    calendarBtn.innerHTML = `
+      <span>🗓️</span>
+      <strong>SPSD School Year</strong>
+      <small>Division calendar and important dates</small>
+    `;
+
+    calendarBtn.addEventListener("click", () => {
+      window.open(
+        "https://www.spsd.sk.ca/Pages/default.aspx",
+        "_blank"
+      );
+    });
+
+    quickGrid.appendChild(calendarBtn);
+  }
+})();
