@@ -672,108 +672,78 @@ body:has(#calendarView:not(.hidden)) .shell {
     animation-delay: 0ms !important;
   }
 }
-
-
-/* ======================================================
-   SIMPLE ENTRY SCREEN — clean fade only
-   ====================================================== */
+/* SIMPLE ENTRY SCREEN — clean fade */
 
 #welcomeSplash.welcome-splash {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 99999 !important;
-  display: grid !important;
-  place-items: center !important;
-  background: linear-gradient(135deg,#274a89,#3f6fc0 58%,#6f8ed0) !important;
-  color: #fff !important;
-  pointer-events: all !important;
-
-  opacity: 0 !important;
-  visibility: visible !important;
-  transform: none !important;
-
-  animation: simpleIntroFade 3.8s ease-in-out forwards !important;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f4f0ff 0%, #fff8f0 100%);
+    animation: introFade 4s forwards;
 }
 
-/* Kill every older child animation and keep the content still */
-#welcomeSplash .welcome-inner,
-#welcomeSplash .welcome-small,
-#welcomeSplash .welcome-icons,
-#welcomeSplash .welcome-icons span,
-#welcomeSplash .welcome-title,
-#welcomeSplash .welcome-line {
-  animation: none !important;
-  transform: none !important;
-  opacity: 1 !important;
-}
-
-/* Keep the intro visually clean */
 #welcomeSplash .welcome-inner {
-  text-align: center;
-}
-
-#welcomeSplash .welcome-small {
-  font-size: .78rem;
-  font-weight: 850;
-  letter-spacing: .14em;
-}
-
-#welcomeSplash .welcome-icons {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin: 20px 0 14px;
-}
-
-#welcomeSplash .welcome-icons span {
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 19px;
-  background: #fff;
-  box-shadow: 0 14px 34px rgba(15,25,60,.20);
-  font-size: 1.95rem;
+    text-align: center;
 }
 
 #welcomeSplash .welcome-title {
-  font-size: clamp(2.3rem,5vw,3.2rem);
-  font-weight: 850;
+    font-size: 56px;
+    opacity: 0;
+    animation: titleFade 1s forwards;
 }
 
 #welcomeSplash .welcome-line {
-  width: 112px;
-  height: 3px;
-  margin: 15px auto 0;
-  border-radius: 999px;
-  background: rgba(255,255,255,.88);
+    font-size: 22px;
+    opacity: 0;
+    animation: lineFade 1s .6s forwards;
 }
 
-/* 0-.7s fade in, hold, 3.0-3.8s fade out */
-@keyframes simpleIntroFade {
-  0% {
-    opacity: 0;
-    visibility: visible;
-  }
-  18% {
-    opacity: 1;
-    visibility: visible;
-  }
-  78% {
-    opacity: 1;
-    visibility: visible;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
+@keyframes introFade {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #welcomeSplash.welcome-splash {
-    animation-duration: .01ms !important;
-  }
+@keyframes titleFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+@keyframes lineFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 
 /* ======================================================
@@ -823,4 +793,20 @@ body:has(#calendarView:not(.hidden)) .shell {
   .day.past-day::after {
     background: rgba(50, 50, 50, .38);
   }
+}
+/* Force the new intro animation to override every older version */
+
+#welcomeSplash.welcome-splash {
+    animation: introFade 4s forwards !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#welcomeSplash .welcome-title {
+    animation: titleFade 1s forwards !important;
+}
+
+#welcomeSplash .welcome-line {
+    animation: lineFade 1s 0.6s forwards !important;
 }
