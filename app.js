@@ -258,7 +258,7 @@ load();
 renderHome();
 renderCalendar();
 renderEventList();
-setTimeout(()=>{const splash=$("welcomeSplash");if(splash)splash.remove()},4000);/* Add a subtle strike-through to days that have already passed */
+/* Add a subtle strike-through to days that have already passed */
 (function () {
   const style = document.createElement("style");
 
